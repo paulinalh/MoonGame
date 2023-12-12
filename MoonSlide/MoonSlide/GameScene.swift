@@ -13,6 +13,8 @@ class GameScene: SKScene {
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
     var moon = SKSpriteNode()
+    private var currentNode: SKNode?
+
     
     override func didMove(to view: SKView){
         self.anchorPoint = CGPoint(x: 0.5, y:0.5)
@@ -22,13 +24,34 @@ class GameScene: SKScene {
         createClouds()
         createMoon()
         
-        /*moon = (self.childNode(withName: "moon") as? SKSpriteNode ?? SKSpriteNode(imageNamed: "moon"))
-        
-        let border = SKPhysicsBody(edgeLoopFrom: self.frame)
-        border.friction = 0
-        border.restitution = 1
-        self.physicsBody = border*/
-        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let location = touch.location(in: self)
+            
+            let touchedNodes = self.nodes(at: location)
+            for node in touchedNodes.reversed() {
+                if node.name == "Moon" {
+                    self.currentNode = node
+                }
+            }
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first, let node = self.currentNode {
+            let touchLocation = touch.location(in: self)
+            node.position = touchLocation
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.currentNode = nil
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.currentNode = nil
     }
     
     override func update(_ currentTime: CFTimeInterval){
@@ -137,25 +160,6 @@ class GameScene: SKScene {
         
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    func touchDown(atPoint pos: CGPoint) {
-        jump()
-    }
-    func touchUp(atPoint pos: CGPoint) {
-        moon.texture = SKTexture(imageNamed: "moon")
-    }
-    
-    
-    func jump() {
-        moon.texture = SKTexture(imageNamed: "moon")
-        moon.physicsBody?.applyImpulse(CGVector(dx: Int.random(in: -5...5), dy: 80))
-    }
     
     
     
