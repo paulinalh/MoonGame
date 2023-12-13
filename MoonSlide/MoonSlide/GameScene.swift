@@ -4,9 +4,17 @@
 //
 //  Created by Paulina Lopez Holguin on 06/12/23.
 //
-
+/*
 import SpriteKit
 import GameplayKit
+import SwiftUI
+
+struct PhysicsCategory {
+    static let none : UInt32 = 0
+    static let all : UInt32 = UInt32.max
+    static let moon : UInt32 = 0b1
+    static let star : UInt32 = 0b10
+}
 
 class GameScene: SKScene {
     var ground = SKSpriteNode()
@@ -19,11 +27,21 @@ class GameScene: SKScene {
     override func didMove(to view: SKView){
         self.anchorPoint = CGPoint(x: 0.5, y:0.5)
         
+        self.setUpPhysicsWorld()
+        
+        
         createGrounds()
-        createStars()
         createClouds()
         createMoon()
+        createStars()
+    }
+    
+    private func setUpPhysicsWorld() {
+        physicsWorld.gravity = CGVector(dx: 0, dy: -0.9)
         
+        //we added this
+        //this is to know when contact happens
+        physicsWorld.contactDelegate = self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -98,7 +116,17 @@ class GameScene: SKScene {
             star.anchorPoint = CGPoint(x: Int.random(in: -20 ..< -5), y: Int.random(in: -40 ..< -5))
             star.position = CGPoint(x: CGFloat(i) * star.size.width, y: -(self.frame.size.height / 2))
             
-            self.addChild(star)
+            star.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
+            star.physicsBody?.affectedByGravity = false
+            star.zPosition = 0
+            //configure the physics bodies
+            //body we are configuration
+            star.physicsBody?.categoryBitMask = PhysicsCategory.star
+            //body colliding against
+            star.physicsBody?.contactTestBitMask = PhysicsCategory.moon
+            star.physicsBody?.collisionBitMask = PhysicsCategory.moon
+            
+            addChild(star)
         }
     }
     
@@ -141,26 +169,48 @@ class GameScene: SKScene {
     }
     
     func createMoon() {
-        let moon = SKSpriteNode(imageNamed: "moon")
-        moon.name = "Moon"
-        moon.size = CGSize(width: 200, height: 200)
-        moon.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.moon = SKSpriteNode(imageNamed: "moon")
+        self.moon.name = "Moon"
+        self.moon.size = CGSize(width: 200, height: 200)
+        self.moon.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        moon.zPosition = 0
         /*moon.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 2))*/
         
         
         
         /*moon = (self.childNode(withName: "moon") as? SKSpriteNode ?? SKSpriteNode(imageNamed: "moon"))*/
         
-        let border = SKPhysicsBody(edgeLoopFrom: self.frame)
-        border.friction = 0
-        border.restitution = 1
-        self.physicsBody = border
+        moon.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
+        moon.physicsBody?.affectedByGravity = false
+        //configure the physics bodies
+        //body we are configurating
+        moon.physicsBody?.categoryBitMask = PhysicsCategory.moon
+        //body colliding against
+        moon.physicsBody?.contactTestBitMask = PhysicsCategory.star
+        moon.physicsBody?.collisionBitMask = PhysicsCategory.star
         
-        self.addChild(moon)
+        addChild(self.moon)
         
     }
     
-    
-    
-    
 }
+
+extension GameScene : SKPhysicsContactDelegate{
+    
+    func didBegin(_ contact : SKPhysicsContact){
+        
+        let firstBody : SKPhysicsBody = contact.bodyA
+        let secondBody: SKPhysicsBody =  contact.bodyB
+        
+        //checking by name not the most efficient way
+        //we could do it by checking the masks
+        if let node = firstBody.node, node.name == "Moon"{
+            node.removeFromParent()
+        }
+        if let node = secondBody.node, node.name == "Moon"{
+            node.removeFromParent()
+        }
+        print("Contact happened!")
+    }
+}
+*/
