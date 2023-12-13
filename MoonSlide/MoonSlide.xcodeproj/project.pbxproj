@@ -18,6 +18,7 @@
 		D40C92112B20D8F300505F3B /* MoonSlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C92102B20D8F300505F3B /* MoonSlideTests.swift */; };
 		D40C921B2B20D8F300505F3B /* MoonSlideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C921A2B20D8F300505F3B /* MoonSlideUITests.swift */; };
 		D40C921D2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C921C2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift */; };
+		D48A442D2B28A635008B4ACF /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48A442C2B28A635008B4ACF /* GameLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		D40C92162B20D8F300505F3B /* MoonSlideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoonSlideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40C921A2B20D8F300505F3B /* MoonSlideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonSlideUITests.swift; sourceTree = "<group>"; };
 		D40C921C2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonSlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D48A442C2B28A635008B4ACF /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				D40C92002B20D8F200505F3B /* Main.storyboard */,
 				D40C92032B20D8F300505F3B /* Assets.xcassets */,
 				D40C92052B20D8F300505F3B /* LaunchScreen.storyboard */,
+				D48A442C2B28A635008B4ACF /* GameLogic.swift */,
 			);
 			path = MoonSlide;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			files = (
 				D40C91FD2B20D8F200505F3B /* GameScene.swift in Sources */,
 				D40C91FF2B20D8F200505F3B /* GameViewController.swift in Sources */,
+				D48A442D2B28A635008B4ACF /* GameLogic.swift in Sources */,
 				D40C91F72B20D8F200505F3B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
