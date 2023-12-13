@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D40C91F72B20D8F200505F3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C91F62B20D8F200505F3B /* AppDelegate.swift */; };
 		D40C91F92B20D8F200505F3B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D40C91F82B20D8F200505F3B /* GameScene.sks */; };
 		D40C91FB2B20D8F200505F3B /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = D40C91FA2B20D8F200505F3B /* Actions.sks */; };
 		D40C91FD2B20D8F200505F3B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C91FC2B20D8F200505F3B /* GameScene.swift */; };
@@ -18,6 +17,16 @@
 		D40C92112B20D8F300505F3B /* MoonSlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C92102B20D8F300505F3B /* MoonSlideTests.swift */; };
 		D40C921B2B20D8F300505F3B /* MoonSlideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C921A2B20D8F300505F3B /* MoonSlideUITests.swift */; };
 		D40C921D2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C921C2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift */; };
+		E0535CC72B29ECF400E6B347 /* ArcadeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CC62B29ECF400E6B347 /* ArcadeGameScene.swift */; };
+		E0535CC92B29ED3500E6B347 /* ArcadeGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CC82B29ED3500E6B347 /* ArcadeGameLogic.swift */; };
+		E0535CCB2B29EF3700E6B347 /* ArcadeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CCA2B29EF3700E6B347 /* ArcadeGameView.swift */; };
+		E0535CCD2B29EF8F00E6B347 /* GameDurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CCC2B29EF8F00E6B347 /* GameDurationView.swift */; };
+		E0535CCF2B29EF9700E6B347 /* GameScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CCE2B29EF9700E6B347 /* GameScoreView.swift */; };
+		E0535CD12B29F01D00E6B347 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD02B29F01D00E6B347 /* ContentView.swift */; };
+		E0535CD32B29F07D00E6B347 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD22B29F07D00E6B347 /* Constants.swift */; };
+		E0535CD52B29F0A700E6B347 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD42B29F0A700E6B347 /* MainScreenView.swift */; };
+		E0535CD72B29F0BF00E6B347 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD62B29F0BF00E6B347 /* GameOverView.swift */; };
+		E0535CD92B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +48,6 @@
 
 /* Begin PBXFileReference section */
 		D40C91F32B20D8F200505F3B /* MoonSlide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonSlide.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D40C91F62B20D8F200505F3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D40C91F82B20D8F200505F3B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D40C91FA2B20D8F200505F3B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		D40C91FC2B20D8F200505F3B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -52,6 +60,16 @@
 		D40C92162B20D8F300505F3B /* MoonSlideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoonSlideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40C921A2B20D8F300505F3B /* MoonSlideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonSlideUITests.swift; sourceTree = "<group>"; };
 		D40C921C2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonSlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E0535CC62B29ECF400E6B347 /* ArcadeGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcadeGameScene.swift; sourceTree = "<group>"; };
+		E0535CC82B29ED3500E6B347 /* ArcadeGameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcadeGameLogic.swift; sourceTree = "<group>"; };
+		E0535CCA2B29EF3700E6B347 /* ArcadeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcadeGameView.swift; sourceTree = "<group>"; };
+		E0535CCC2B29EF8F00E6B347 /* GameDurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDurationView.swift; sourceTree = "<group>"; };
+		E0535CCE2B29EF9700E6B347 /* GameScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScoreView.swift; sourceTree = "<group>"; };
+		E0535CD02B29F01D00E6B347 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E0535CD22B29F07D00E6B347 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E0535CD42B29F0A700E6B347 /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		E0535CD62B29F0BF00E6B347 /* GameOverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+		E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcadeGameTemplateApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,13 +120,22 @@
 		D40C91F52B20D8F200505F3B /* MoonSlide */ = {
 			isa = PBXGroup;
 			children = (
-				D40C91F62B20D8F200505F3B /* AppDelegate.swift */,
+				E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */,
 				D40C91F82B20D8F200505F3B /* GameScene.sks */,
 				D40C91FA2B20D8F200505F3B /* Actions.sks */,
 				D40C91FC2B20D8F200505F3B /* GameScene.swift */,
+				E0535CD22B29F07D00E6B347 /* Constants.swift */,
 				D40C91FE2B20D8F200505F3B /* GameViewController.swift */,
-				D40C92002B20D8F200505F3B /* Main.storyboard */,
+				E0535CCA2B29EF3700E6B347 /* ArcadeGameView.swift */,
+				E0535CC62B29ECF400E6B347 /* ArcadeGameScene.swift */,
+				E0535CC82B29ED3500E6B347 /* ArcadeGameLogic.swift */,
+				E0535CCC2B29EF8F00E6B347 /* GameDurationView.swift */,
+				E0535CCE2B29EF9700E6B347 /* GameScoreView.swift */,
+				E0535CD02B29F01D00E6B347 /* ContentView.swift */,
+				E0535CD42B29F0A700E6B347 /* MainScreenView.swift */,
+				E0535CD62B29F0BF00E6B347 /* GameOverView.swift */,
 				D40C92032B20D8F300505F3B /* Assets.xcassets */,
+				D40C92002B20D8F200505F3B /* Main.storyboard */,
 				D40C92052B20D8F300505F3B /* LaunchScreen.storyboard */,
 			);
 			path = MoonSlide;
@@ -264,9 +291,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0535CC72B29ECF400E6B347 /* ArcadeGameScene.swift in Sources */,
 				D40C91FD2B20D8F200505F3B /* GameScene.swift in Sources */,
+				E0535CD92B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift in Sources */,
 				D40C91FF2B20D8F200505F3B /* GameViewController.swift in Sources */,
-				D40C91F72B20D8F200505F3B /* AppDelegate.swift in Sources */,
+				E0535CCB2B29EF3700E6B347 /* ArcadeGameView.swift in Sources */,
+				E0535CD32B29F07D00E6B347 /* Constants.swift in Sources */,
+				E0535CD12B29F01D00E6B347 /* ContentView.swift in Sources */,
+				E0535CD52B29F0A700E6B347 /* MainScreenView.swift in Sources */,
+				E0535CC92B29ED3500E6B347 /* ArcadeGameLogic.swift in Sources */,
+				E0535CCD2B29EF8F00E6B347 /* GameDurationView.swift in Sources */,
+				E0535CD72B29F0BF00E6B347 /* GameOverView.swift in Sources */,
+				E0535CCF2B29EF9700E6B347 /* GameScoreView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,9 +491,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -488,9 +524,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
