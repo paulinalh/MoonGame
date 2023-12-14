@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    
+    @State var currentGameState: GameState = .mainScreen
+
     @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
     private let onboardingData: [OnboardingData] = [
         OnboardingData(title: "Control the moon", description: "Drag the moon to up and down to control its movement. Collect stars to light up your lunar journey."),
@@ -20,7 +23,6 @@ struct OnboardingView: View {
         if isFirstLaunch {
             GeometryReader { geometry in
                 ZStack {
-                    // Background Image
                     Image("background")
                         .resizable()
                         .scaledToFill()
@@ -79,12 +81,12 @@ struct OnboardingView: View {
                         )
                         
                                             }
-                    .padding(.top, 20) // Adjust as needed
+                    .padding(.top, 20)
                 }
             }
         } else {
             //change this to main view when you guys finish your merge
-            EmptyView()
+            ArcadeGameView(currentGameState: $currentGameState)
         }
     }
 }
