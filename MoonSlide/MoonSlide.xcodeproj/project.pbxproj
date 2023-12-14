@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D146B35A2B2B5AFC00BB5A48 /* Moon.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D146B3592B2B5AFC00BB5A48 /* Moon.atlas */; };
+		D146B35C2B2BA45B00BB5A48 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */; };
 		D40C91F92B20D8F200505F3B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D40C91F82B20D8F200505F3B /* GameScene.sks */; };
 		D40C91FB2B20D8F200505F3B /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = D40C91FA2B20D8F200505F3B /* Actions.sks */; };
 		D40C91FD2B20D8F200505F3B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C91FC2B20D8F200505F3B /* GameScene.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D146B3592B2B5AFC00BB5A48 /* Moon.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Moon.atlas; sourceTree = "<group>"; };
+		D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D40C91F32B20D8F200505F3B /* MoonSlide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonSlide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40C91F82B20D8F200505F3B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D40C91FA2B20D8F200505F3B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -120,9 +124,9 @@
 		D40C91F52B20D8F200505F3B /* MoonSlide */ = {
 			isa = PBXGroup;
 			children = (
-				E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */,
 				D40C91F82B20D8F200505F3B /* GameScene.sks */,
 				D40C91FA2B20D8F200505F3B /* Actions.sks */,
+				E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */,
 				D40C91FC2B20D8F200505F3B /* GameScene.swift */,
 				E0535CD22B29F07D00E6B347 /* Constants.swift */,
 				D40C91FE2B20D8F200505F3B /* GameViewController.swift */,
@@ -134,7 +138,9 @@
 				E0535CD02B29F01D00E6B347 /* ContentView.swift */,
 				E0535CD42B29F0A700E6B347 /* MainScreenView.swift */,
 				E0535CD62B29F0BF00E6B347 /* GameOverView.swift */,
+				D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */,
 				D40C92032B20D8F300505F3B /* Assets.xcassets */,
+				D146B3592B2B5AFC00BB5A48 /* Moon.atlas */,
 				D40C92002B20D8F200505F3B /* Main.storyboard */,
 				D40C92052B20D8F300505F3B /* LaunchScreen.storyboard */,
 			);
@@ -262,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D146B35A2B2B5AFC00BB5A48 /* Moon.atlas in Resources */,
 				D40C92022B20D8F200505F3B /* Main.storyboard in Resources */,
 				D40C91F92B20D8F200505F3B /* GameScene.sks in Resources */,
 				D40C92042B20D8F300505F3B /* Assets.xcassets in Resources */,
@@ -302,6 +309,7 @@
 				E0535CC92B29ED3500E6B347 /* ArcadeGameLogic.swift in Sources */,
 				E0535CCD2B29EF8F00E6B347 /* GameDurationView.swift in Sources */,
 				E0535CD72B29F0BF00E6B347 /* GameOverView.swift in Sources */,
+				D146B35C2B2BA45B00BB5A48 /* OnboardingView.swift in Sources */,
 				E0535CCF2B29EF9700E6B347 /* GameScoreView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,7 +492,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9A34GM6NJL;
+				DEVELOPMENT_TEAM = 7X3HJTLUN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoonSlide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
@@ -517,7 +525,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9A34GM6NJL;
+				DEVELOPMENT_TEAM = 7X3HJTLUN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoonSlide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";

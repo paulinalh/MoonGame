@@ -24,7 +24,7 @@ struct ContentView: View {
         
         switch currentGameState {
         case .mainScreen:
-            MainScreenView(currentGameState: $currentGameState)
+            OnboardingView()
                 .environmentObject(gameLogic)
         
         case .playing:

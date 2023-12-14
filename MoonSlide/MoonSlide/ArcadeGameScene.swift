@@ -24,7 +24,9 @@ struct PhysicsCategory {
 }
 
 class ArcadeGameScene: SKScene {
-    
+    var moonWalkingFrames: [SKTexture] = []
+
+
     var ground = SKSpriteNode()
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
@@ -191,8 +193,7 @@ extension ArcadeGameScene {
         let switchTo2SecondsActionE = SKAction.run {
             self.removeAction(forKey: "starCycleAction3SecondsE") // Stop the initial cycle
             self.run(generateStarsEvery2SecondsE, withKey: "starCycleAction2SecondsE")
-        }
-        
+        }        
         
         // After 30 seconds, change to generating stars every 2 seconds
         let switchTo1SecondsE = SKAction.wait(forDuration: 30.0)
@@ -246,28 +247,33 @@ extension ArcadeGameScene {
     
     //MARK: Drag
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
+            guard let touch = touches.first else { return }
             let location = touch.location(in: self)
-            
-            let touchedNodes = self.nodes(at: location)
-            for node in touchedNodes.reversed() {
-                if node.name == "Moon" {
-                    self.currentNode = node
-                }
+
+            if moon.contains(location) {
+                isTouchingPlayer = true
             }
         }
-    }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first, let node = self.currentNode {
-            let touchLocation = touch.location(in: self)
-            node.position = touchLocation
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.currentNode = nil
-    }
+           guard isTouchingPlayer, let touch = touches.first else { return }
+
+           let location = touch.location(in: self)
+
+           // Restrict dragging to the left 25% of the screen in the x-axis
+           let minX = frame.size.width * 0.20
+           let minY = 50.0 // Adjust the minimum y value as needed
+           let maxY = frame.size.height - 70.0 // Adjust the maximum y value as needed
+
+           let newX = max(minX, min(location.x, frame.size.width * 0.20))
+           let newY = max(minY, min(location.y, maxY))
+
+           moon.position = CGPoint(x: newX, y: newY)
+       }
+
+
+
+
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.currentNode = nil
@@ -426,24 +432,28 @@ extension ArcadeGameScene {
 
 //MARK: create Moon
 extension ArcadeGameScene {
+    
     func createMoon() {
-        self.moon = SKSpriteNode(imageNamed: "moon")
-        self.moon.name = "Moon"
-        self.moon.size = CGSize(width: 100, height: 100)
-        //self.moon.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        let moonPosition = CGPoint(x: self.frame.width/8, y: self.frame.height/2)
-        self.moon.position = moonPosition
-        //moon.zPosition = 0
-        /*moon.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 2))*/
-        
-        
-        
-        /*moon = (self.childNode(withName: "moon") as? SKSpriteNode ?? SKSpriteNode(imageNamed: "moon"))*/
-        
+        // Load moon texture atlas
+        let moonAnimatedAtlas = SKTextureAtlas(named: "Moon")
+
+        // Set up moon animation frames
+        var walkFrames: [SKTexture] = []
+        for i in 1...moonAnimatedAtlas.textureNames.count {
+            let moonTextureName = "Moon\(i)"
+            walkFrames.append(moonAnimatedAtlas.textureNamed(moonTextureName))
+        }
+
+        // Set up moon sprite with the first frame texture
+        let firstFrameTexture = walkFrames[0]
+        moon = SKSpriteNode(texture: firstFrameTexture)
+        moon.size = CGSize(width: 120, height: 120)
+        let moonPosition = CGPoint(x: self.frame.width / 8, y: self.frame.height / 2)
+        moon.position = moonPosition
+
+        // Configure moon physics body
         moon.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
         moon.physicsBody?.affectedByGravity = false
-        //configure the physics bodies
-        //body we are configurating
         moon.physicsBody?.categoryBitMask = PhysicsCategory.moon
         //body colliding against stars
         moon.physicsBody?.contactTestBitMask = PhysicsCategory.star
@@ -451,14 +461,35 @@ extension ArcadeGameScene {
 
         moon.physicsBody?.collisionBitMask = PhysicsCategory.obstacle
 
-    
+ 
         addChild(self.moon)
-        
+        startMoonAnimation()
     }
+    
+    func startMoonAnimation() {
+        let moonAnimatedAtlas = SKTextureAtlas(named: "Moon")
+        var walkFrames: [SKTexture] = []
+
+        for i in 1...moonAnimatedAtlas.textureNames.count {
+            let moonTextureName = "Moon\(i)"
+            walkFrames.append(moonAnimatedAtlas.textureNamed(moonTextureName))
+        }
+
+        moon.run(SKAction.repeatForever(
+            SKAction.animate(with: walkFrames,
+                             timePerFrame: 0.15,
+                             resize: false,
+                             restore: true)),
+                  withKey: "walkingInPlaceMoon")
+    }
+
+    
     
 }
 
-//MARK: create moving ground
+
+
+//MARK: -create moving ground
 extension ArcadeGameScene{
     
     func createGrounds(){
@@ -515,7 +546,7 @@ extension ArcadeGameScene{
 }
 
 
-//MARK: Contacts and Collisions
+//MARK: -Contacts and Collisions
 extension ArcadeGameScene : SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
