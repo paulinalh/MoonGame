@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D146B35A2B2B5AFC00BB5A48 /* Moon.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D146B3592B2B5AFC00BB5A48 /* Moon.atlas */; };
+		D146B35C2B2BA45B00BB5A48 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */; };
 		D40C91F92B20D8F200505F3B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D40C91F82B20D8F200505F3B /* GameScene.sks */; };
 		D40C91FB2B20D8F200505F3B /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = D40C91FA2B20D8F200505F3B /* Actions.sks */; };
 		D40C91FD2B20D8F200505F3B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C91FC2B20D8F200505F3B /* GameScene.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		D146B3592B2B5AFC00BB5A48 /* Moon.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Moon.atlas; sourceTree = "<group>"; };
+		D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D40C91F32B20D8F200505F3B /* MoonSlide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonSlide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40C91F82B20D8F200505F3B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D40C91FA2B20D8F200505F3B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				E0535CD02B29F01D00E6B347 /* ContentView.swift */,
 				E0535CD42B29F0A700E6B347 /* MainScreenView.swift */,
 				E0535CD62B29F0BF00E6B347 /* GameOverView.swift */,
+				D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */,
 				D40C92032B20D8F300505F3B /* Assets.xcassets */,
 				D146B3592B2B5AFC00BB5A48 /* Moon.atlas */,
 				D40C92002B20D8F200505F3B /* Main.storyboard */,
@@ -306,6 +309,7 @@
 				E0535CC92B29ED3500E6B347 /* ArcadeGameLogic.swift in Sources */,
 				E0535CCD2B29EF8F00E6B347 /* GameDurationView.swift in Sources */,
 				E0535CD72B29F0BF00E6B347 /* GameOverView.swift in Sources */,
+				D146B35C2B2BA45B00BB5A48 /* OnboardingView.swift in Sources */,
 				E0535CCF2B29EF9700E6B347 /* GameScoreView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
