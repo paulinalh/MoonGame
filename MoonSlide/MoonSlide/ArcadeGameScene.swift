@@ -25,8 +25,8 @@ struct PhysicsCategory {
 
 class ArcadeGameScene: SKScene {
     var moonWalkingFrames: [SKTexture] = []
-
-
+    
+    
     var ground = SKSpriteNode()
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
@@ -80,10 +80,8 @@ class ArcadeGameScene: SKScene {
         self.gameLogic.increaseSessionTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
-        print(timeSinceUpdateCloudsVelocity)
         
-        
-        if timeSinceUpdateCloudsVelocity > 10 && self.cloudVelocity < 14 {
+        if timeSinceUpdateCloudsVelocity > 10 && self.cloudVelocity < 10 {
             self.cloudVelocity += 2
             moveGrounds()
             timeSinceUpdateCloudsVelocity = 0
@@ -104,8 +102,8 @@ extension ArcadeGameScene {
         createMoon()
         createGrounds()
         self.startStarsCycle()
-        self.startEvilStarsCycle()
-        self.startObstacleCycle()
+        self.startObstaclesCycle()
+        //self.startObstacleCycle()
         
     }
     
@@ -122,23 +120,23 @@ extension ArcadeGameScene {
     
     func startStarsCycle() {
         
-            let initialDelay = SKAction.wait(forDuration: 4.0)
-            let createStarsAction = SKAction.run(createStar)
-            let createAndWaitAction = SKAction.sequence([createStarsAction, initialDelay])
-            let starCycleAction = SKAction.repeatForever(createAndWaitAction)
-            
-            run(starCycleAction, withKey: "starCycleAction")
+        let initialDelay = SKAction.wait(forDuration: 4.0)
+        let createStarsAction = SKAction.run(createStar)
+        let createAndWaitAction = SKAction.sequence([createStarsAction, initialDelay])
+        let starCycleAction = SKAction.repeatForever(createAndWaitAction)
         
-            
-            // After 10 seconds, change to generating stars every 3 seconds
-            let switchTo3Seconds = SKAction.wait(forDuration: 10.0)
-            let generateStarsEvery3Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createStar), SKAction.wait(forDuration: 3.0)]))
-            let switchTo3SecondsAction = SKAction.run {
-                self.removeAction(forKey: "starCycleAction") // Stop the initial cycle
-                self.run(generateStarsEvery3Seconds, withKey: "starCycleAction3Seconds")
-            }
-            
-    
+        run(starCycleAction, withKey: "starCycleAction")
+        
+        
+        // After 10 seconds, change to generating stars every 3 seconds
+        let switchTo3Seconds = SKAction.wait(forDuration: 10.0)
+        let generateStarsEvery3Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createStar), SKAction.wait(forDuration: 3.0)]))
+        let switchTo3SecondsAction = SKAction.run {
+            self.removeAction(forKey: "starCycleAction") // Stop the initial cycle
+            self.run(generateStarsEvery3Seconds, withKey: "starCycleAction3Seconds")
+        }
+        
+        
         
         // After 20 seconds, change to generating stars every 2 seconds
         let switchTo2Seconds = SKAction.wait(forDuration: 20.0)
@@ -167,62 +165,47 @@ extension ArcadeGameScene {
         
         let sequence = SKAction.sequence([switchTo3Seconds, switchTo3SecondsAction, switchTo2Seconds, switchTo2SecondsAction,switchTo1Seconds, switchTo1SecondsAction, switchToHalfSeconds, switchToHalfSecondsAction])
         run(sequence)
-        }
-    
-    
-    
-    func startEvilStarsCycle() {
-        let initialDelay = SKAction.wait(forDuration: 9.0)
-        let createStarsAction = SKAction.run(createObstacle)
-        let createAndWaitAction = SKAction.sequence([createStarsAction, initialDelay])
-        let starEvilCycleAction = SKAction.repeatForever(createAndWaitAction)
-        
-        run(starEvilCycleAction, withKey: "starEvilCycleAction")
-        
-        // After 10 seconds, change to generating stars every 3 seconds
-        let switchTo3SecondsE = SKAction.wait(forDuration: 10.0)
-        let generateStarsEvery3SecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 3.0)]))
-        let switchTo3SecondsActionE = SKAction.run {
-            self.removeAction(forKey: "starEvilCycleAction") // Stop the initial cycle
-            self.run(generateStarsEvery3SecondsE, withKey: "starCycleAction3SecondsE")
-        }
-        
-        // After 20 seconds, change to generating stars every 2 seconds
-        let switchTo2SecondsE = SKAction.wait(forDuration: 20.0)
-        let generateStarsEvery2SecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 2.0)]))
-        let switchTo2SecondsActionE = SKAction.run {
-            self.removeAction(forKey: "starCycleAction3SecondsE") // Stop the initial cycle
-            self.run(generateStarsEvery2SecondsE, withKey: "starCycleAction2SecondsE")
-        }        
-        
-        // After 30 seconds, change to generating stars every 2 seconds
-        let switchTo1SecondsE = SKAction.wait(forDuration: 30.0)
-        let generateStarsEvery1SecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 1.0)]))
-        let switchTo1SecondsActionE = SKAction.run {
-            self.removeAction(forKey: "starCycleAction2SecondsE") // Stop the initial cycle
-            self.run(generateStarsEvery1SecondsE, withKey: "starCycleAction1SecondsE")
-        }
-        
-        // After 40 seconds, change to generating stars every 0.5 seconds
-        let switchToHalfSecondsE = SKAction.wait(forDuration: 40.0)
-        let generateStarsEveryHalfSecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 0.5)]))
-        let switchToHalfSecondsActionE = SKAction.run {
-            self.removeAction(forKey: "starCycleAction1SecondsE") // Stop the initial cycle
-            self.run(generateStarsEveryHalfSecondsE, withKey: "starCycleActionHalfSecondsE")
-        }
-        
-        let sequence = SKAction.sequence([switchTo3SecondsE, switchTo3SecondsActionE, switchTo2SecondsE, switchTo2SecondsActionE,switchTo1SecondsE, switchTo1SecondsActionE, switchToHalfSecondsE, switchToHalfSecondsActionE])
-        run(sequence)
     }
     
-    func startObstacleCycle() {
+    
+    
+    func startObstaclesCycle() {
         let initialDelay = SKAction.wait(forDuration: 9.0)
         let createObstaclesAction = SKAction.run(createObstacle)
         let createAndWaitAction = SKAction.sequence([createObstaclesAction, initialDelay])
-        let obstacleCycleAction = SKAction.repeatForever(createAndWaitAction)
+        let obstaclesCycleAction = SKAction.repeatForever(createAndWaitAction)
         
-        run(obstacleCycleAction, withKey: "obstacleCycleAction")
+        run(obstaclesCycleAction, withKey: "obstaclesCycleAction")
+        
+        // After 10 seconds, change to generating stars every 3 seconds
+        let switchTo3Seconds = SKAction.wait(forDuration: 10.0)
+        let generateObstaclesEvery3Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 3.0)]))
+        let switchTo3SecondsAction = SKAction.run {
+            self.removeAction(forKey: "obstaclesAction") // Stop the initial cycle
+            self.run(generateObstaclesEvery3Seconds, withKey: "obstaclesAction3Seconds")
+        }
+        
+        // After 20 seconds, change to generating stars every 2 seconds
+        let switchTo2Seconds = SKAction.wait(forDuration: 20.0)
+        let generateObstaclesEvery2Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 2.0)]))
+        let switchTo2SecondsAction = SKAction.run {
+            self.removeAction(forKey: "obstaclesCycleAction3Seconds") // Stop the initial cycle
+            self.run(generateObstaclesEvery2Seconds, withKey: "obstaclesCycleAction2Seconds")
+        }
+        
+        // After 30 seconds, change to generating stars every second
+        let switchTo1Seconds = SKAction.wait(forDuration: 30.0)
+        let generateObstaclesEvery1Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 1.0)]))
+        let switchTo1SecondsAction = SKAction.run {
+            self.removeAction(forKey: "obstaclesCycleAction2Seconds") // Stop the initial cycle
+            self.run(generateObstaclesEvery1Seconds, withKey: "obstaclesCycleAction1Seconds")
+        }
+
+        
+        let sequence = SKAction.sequence([switchTo3Seconds, switchTo3SecondsAction, switchTo2Seconds, switchTo2SecondsAction,switchTo1Seconds, switchTo1SecondsAction])
+        run(sequence)
     }
+    
 }
 
 // MARK: - Player Movement
@@ -247,33 +230,33 @@ extension ArcadeGameScene {
     
     //MARK: Drag
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            guard let touch = touches.first else { return }
-            let location = touch.location(in: self)
-
-            if moon.contains(location) {
-                isTouchingPlayer = true
-            }
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        
+        if moon.contains(location) {
+            isTouchingPlayer = true
         }
-
+    }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-           guard isTouchingPlayer, let touch = touches.first else { return }
-
-           let location = touch.location(in: self)
-
-           // Restrict dragging to the left 25% of the screen in the x-axis
-           let minX = frame.size.width * 0.20
-           let minY = 50.0 // Adjust the minimum y value as needed
-           let maxY = frame.size.height - 70.0 // Adjust the maximum y value as needed
-
-           let newX = max(minX, min(location.x, frame.size.width * 0.20))
-           let newY = max(minY, min(location.y, maxY))
-
-           moon.position = CGPoint(x: newX, y: newY)
-       }
-
-
-
-
+        guard isTouchingPlayer, let touch = touches.first else { return }
+        
+        let location = touch.location(in: self)
+        
+        // Restrict dragging to the left 25% of the screen in the x-axis
+        let minX = frame.size.width * 0.20
+        let minY = 50.0 // Adjust the minimum y value as needed
+        let maxY = frame.size.height - 70.0 // Adjust the maximum y value as needed
+        
+        let newX = max(minX, min(location.x, frame.size.width * 0.20))
+        let newY = max(minY, min(location.y, maxY))
+        
+        moon.position = CGPoint(x: newX, y: newY)
+    }
+    
+    
+    
+    
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.currentNode = nil
@@ -323,9 +306,6 @@ extension ArcadeGameScene {
     }
     
 }
-
-
-
 
 // MARK: - Stars
 extension ArcadeGameScene {
@@ -392,10 +372,6 @@ extension ArcadeGameScene {
         newObstacle(at: obstaclePosition)
     }
     
-    class Obstacle: SKSpriteNode {
-            // Add any properties or methods specific to the star class here
-        }
-    
     private func newObstacle(at position: CGPoint) {
         let obstacleNames = ["astronaut", "meteorite", "satellite"]
         let randomObstacleName = obstacleNames.randomElement() ?? "satellite"
@@ -436,32 +412,38 @@ extension ArcadeGameScene {
     func createMoon() {
         // Load moon texture atlas
         let moonAnimatedAtlas = SKTextureAtlas(named: "Moon")
-
+        
         // Set up moon animation frames
         var walkFrames: [SKTexture] = []
         for i in 1...moonAnimatedAtlas.textureNames.count {
             let moonTextureName = "Moon\(i)"
             walkFrames.append(moonAnimatedAtlas.textureNamed(moonTextureName))
         }
-
+        
         // Set up moon sprite with the first frame texture
         let firstFrameTexture = walkFrames[0]
         moon = SKSpriteNode(texture: firstFrameTexture)
         moon.size = CGSize(width: 120, height: 120)
         let moonPosition = CGPoint(x: self.frame.width / 8, y: self.frame.height / 2)
         moon.position = moonPosition
-
+        
         // Configure moon physics body
         moon.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
         moon.physicsBody?.affectedByGravity = false
+        
+        moon.physicsBody?.mass = 1.0  // Increase the mass
+        moon.physicsBody?.restitution = 0.2  // Lower restitution for less 'bounciness'
+        moon.physicsBody?.linearDamping = 0.5  // Apply some damping to slow down after collision
+        moon.physicsBody?.angularDamping = 10  // Slow down rotational movement after collision
+        
         moon.physicsBody?.categoryBitMask = PhysicsCategory.moon
         //body colliding against stars
         moon.physicsBody?.contactTestBitMask = PhysicsCategory.star
         //moon.physicsBody?.contactTestBitMask = PhysicsCategory.obstacle
-
+        
         moon.physicsBody?.collisionBitMask = PhysicsCategory.obstacle
-
- 
+        
+        
         addChild(self.moon)
         startMoonAnimation()
     }
@@ -469,20 +451,20 @@ extension ArcadeGameScene {
     func startMoonAnimation() {
         let moonAnimatedAtlas = SKTextureAtlas(named: "Moon")
         var walkFrames: [SKTexture] = []
-
+        
         for i in 1...moonAnimatedAtlas.textureNames.count {
             let moonTextureName = "Moon\(i)"
             walkFrames.append(moonAnimatedAtlas.textureNamed(moonTextureName))
         }
-
+        
         moon.run(SKAction.repeatForever(
             SKAction.animate(with: walkFrames,
                              timePerFrame: 0.15,
                              resize: false,
                              restore: true)),
-                  withKey: "walkingInPlaceMoon")
+                 withKey: "walkingInPlaceMoon")
     }
-
+    
     
     
 }
@@ -520,20 +502,6 @@ extension ArcadeGameScene{
         }))
     }
     
-    /*func moveGrounds(){
-        self.enumerateChildNodes(withName: "Ground", using: ({
-            (node, error) in
-
-            // Increase position.x by a certain amount
-            node.position.x += 2 // Adjust the value as needed
-
-            // Reset the position if it goes too far
-            if node.position.x > self.scene!.size.width {
-                node.position.x -= self.scene!.size.width * 3
-            }
-        }))
-    }*/
-    
     //MARK: background
     func createBackground(){
         let background = SKSpriteNode(imageNamed: "background") // Use the name of your image asset
@@ -552,11 +520,11 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
     func didBegin(_ contact: SKPhysicsContact) {
         let firstBody: SKPhysicsBody = contact.bodyA
         let secondBody: SKPhysicsBody = contact.bodyB
-
+        
         // Determine which node is the moon and which is the star or obstacle
         let moonNode = firstBody.categoryBitMask == PhysicsCategory.moon ? firstBody.node : secondBody.node
         let otherNode = firstBody.categoryBitMask == PhysicsCategory.moon ? secondBody.node : firstBody.node
-
+        
         // Check for contact with a star
         if otherNode?.name == "Star" {
             print("Contact with a star. Removing star node.")
@@ -572,7 +540,7 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
             print("Contact with an obstacle.")
             // Add any specific actions you want to happen when the moon contacts an obstacle
         }
-
+        
         // Logging to confirm contact has occurred
         print("Contact happened between \(firstBody.node?.name ?? "No Name") and \(secondBody.node?.name ?? "No Name")")
     }
