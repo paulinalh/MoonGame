@@ -20,9 +20,8 @@ struct PhysicsCategory {
     static let all : UInt32 = UInt32.max
     static let moon : UInt32 = 0b1
     static let star : UInt32 = 0b10
+    static let obstacle : UInt32 = 0b100
 }
-
-//self.backgroundColor = SKColor.white
 
 class ArcadeGameScene: SKScene {
     var moonWalkingFrames: [SKTexture] = []
@@ -32,6 +31,8 @@ class ArcadeGameScene: SKScene {
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
     var moon = SKSpriteNode()
+    var timeSinceUpdateCloudsVelocity : TimeInterval = 0
+    var cloudVelocity : TimeInterval = 2
     private var currentNode: SKNode?
     /**
      * # The Game Logic
@@ -68,15 +69,27 @@ class ArcadeGameScene: SKScene {
         
         // The first time the update function is called we must initialize the
         // lastUpdate variable
-        if self.lastUpdate == 0 { self.lastUpdate = currentTime }
-        
+        if self.lastUpdate == 0 {
+            self.lastUpdate = currentTime
+            moveGrounds()
+        }
         // Calculates how much time has passed since the last update
         let timeElapsedSinceLastUpdate = currentTime - self.lastUpdate
+        timeSinceUpdateCloudsVelocity += currentTime - self.lastUpdate
         // Increments the length of the game session at the game logic
         self.gameLogic.increaseSessionTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
-        moveGrounds()
+        print(timeSinceUpdateCloudsVelocity)
+        
+        
+        if timeSinceUpdateCloudsVelocity > 10 && self.cloudVelocity < 14 {
+            self.cloudVelocity += 2
+            moveGrounds()
+            timeSinceUpdateCloudsVelocity = 0
+        }else{
+            moveGrounds()
+        }
         
     }
     
@@ -92,6 +105,7 @@ extension ArcadeGameScene {
         createGrounds()
         self.startStarsCycle()
         self.startEvilStarsCycle()
+        self.startObstacleCycle()
         
     }
     
@@ -105,58 +119,110 @@ extension ArcadeGameScene {
         self.gameLogic.restartGame()
     }
     
+    
     func startStarsCycle() {
-        let initialDelay = SKAction.wait(forDuration: 2.0) // Shorter initial delay
-        let createStarsAction = SKAction.run(createStar)
-        let createAndWaitAction = SKAction.sequence([createStarsAction, initialDelay])
-        let starCycleAction = SKAction.repeatForever(createAndWaitAction)
         
-        run(starCycleAction, withKey: "starCycleAction")
+            let initialDelay = SKAction.wait(forDuration: 4.0)
+            let createStarsAction = SKAction.run(createStar)
+            let createAndWaitAction = SKAction.sequence([createStarsAction, initialDelay])
+            let starCycleAction = SKAction.repeatForever(createAndWaitAction)
+            
+            run(starCycleAction, withKey: "starCycleAction")
         
-        // After 5 seconds, change to generating stars every 1.5 seconds
-        let switchTo15Seconds = SKAction.wait(forDuration: 3.0)
-        let generateStarsEvery15Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createStar), SKAction.wait(forDuration: 1.0)]))
-        let switchTo15SecondsAction = SKAction.run {
-            self.removeAction(forKey: "starCycleAction") // Stop the initial cycle
-            self.run(generateStarsEvery15Seconds, withKey: "starCycleAction15Seconds")
+            
+            // After 10 seconds, change to generating stars every 3 seconds
+            let switchTo3Seconds = SKAction.wait(forDuration: 10.0)
+            let generateStarsEvery3Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createStar), SKAction.wait(forDuration: 3.0)]))
+            let switchTo3SecondsAction = SKAction.run {
+                self.removeAction(forKey: "starCycleAction") // Stop the initial cycle
+                self.run(generateStarsEvery3Seconds, withKey: "starCycleAction3Seconds")
+            }
+            
+    
+        
+        // After 20 seconds, change to generating stars every 2 seconds
+        let switchTo2Seconds = SKAction.wait(forDuration: 20.0)
+        let generateStarsEvery2Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createStar), SKAction.wait(forDuration: 2.0)]))
+        let switchTo2SecondsAction = SKAction.run {
+            self.removeAction(forKey: "starCycleAction3Seconds") // Stop the initial cycle
+            self.run(generateStarsEvery2Seconds, withKey: "starCycleAction2Seconds")
         }
         
-        let sequence = SKAction.sequence([switchTo15Seconds, switchTo15SecondsAction])
+        
+        // After 30 seconds, change to generating stars every 2 seconds
+        let switchTo1Seconds = SKAction.wait(forDuration: 30.0)
+        let generateStarsEvery1Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createStar), SKAction.wait(forDuration: 1.0)]))
+        let switchTo1SecondsAction = SKAction.run {
+            self.removeAction(forKey: "starCycleAction2Seconds") // Stop the initial cycle
+            self.run(generateStarsEvery1Seconds, withKey: "starCycleAction1Seconds")
+        }
+        
+        // After 40 seconds, change to generating stars every 0.5 seconds
+        let switchToHalfSeconds = SKAction.wait(forDuration: 40.0)
+        let generateStarsEveryHalfSeconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createStar), SKAction.wait(forDuration: 0.5)]))
+        let switchToHalfSecondsAction = SKAction.run {
+            self.removeAction(forKey: "starCycleAction1Seconds") // Stop the initial cycle
+            self.run(generateStarsEveryHalfSeconds, withKey: "starCycleActionHalfSeconds")
+        }
+        
+        let sequence = SKAction.sequence([switchTo3Seconds, switchTo3SecondsAction, switchTo2Seconds, switchTo2SecondsAction,switchTo1Seconds, switchTo1SecondsAction, switchToHalfSeconds, switchToHalfSecondsAction])
         run(sequence)
-    }
-
-
-   
+        }
+    
+    
+    
     func startEvilStarsCycle() {
-        let initialDelay = SKAction.wait(forDuration: 4.0) // Shorter initial delay
-        let createStarsAction = SKAction.run(createEvilStar)
+        let initialDelay = SKAction.wait(forDuration: 9.0)
+        let createStarsAction = SKAction.run(createObstacle)
         let createAndWaitAction = SKAction.sequence([createStarsAction, initialDelay])
         let starEvilCycleAction = SKAction.repeatForever(createAndWaitAction)
         
         run(starEvilCycleAction, withKey: "starEvilCycleAction")
         
-        // After 5 seconds, change to generating stars every 2 seconds
-        let switchTo2SecondsE = SKAction.wait(forDuration: 5.0)
-        let generateStarsEvery2Seconds = SKAction.repeatForever(SKAction.sequence([SKAction.run(createEvilStar), SKAction.wait(forDuration: 2.0)]))
-        let switchTo2SecondsActionE = SKAction.run {
+        // After 10 seconds, change to generating stars every 3 seconds
+        let switchTo3SecondsE = SKAction.wait(forDuration: 10.0)
+        let generateStarsEvery3SecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 3.0)]))
+        let switchTo3SecondsActionE = SKAction.run {
             self.removeAction(forKey: "starEvilCycleAction") // Stop the initial cycle
-            self.run(generateStarsEvery2Seconds, withKey: "starCycleAction2SecondsE")
+            self.run(generateStarsEvery3SecondsE, withKey: "starCycleAction3SecondsE")
         }
         
-        let sequenceE = SKAction.sequence([switchTo2SecondsE, switchTo2SecondsActionE])
-        run(sequenceE)
+        // After 20 seconds, change to generating stars every 2 seconds
+        let switchTo2SecondsE = SKAction.wait(forDuration: 20.0)
+        let generateStarsEvery2SecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 2.0)]))
+        let switchTo2SecondsActionE = SKAction.run {
+            self.removeAction(forKey: "starCycleAction3SecondsE") // Stop the initial cycle
+            self.run(generateStarsEvery2SecondsE, withKey: "starCycleAction2SecondsE")
+        }        
+        
+        // After 30 seconds, change to generating stars every 2 seconds
+        let switchTo1SecondsE = SKAction.wait(forDuration: 30.0)
+        let generateStarsEvery1SecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 1.0)]))
+        let switchTo1SecondsActionE = SKAction.run {
+            self.removeAction(forKey: "starCycleAction2SecondsE") // Stop the initial cycle
+            self.run(generateStarsEvery1SecondsE, withKey: "starCycleAction1SecondsE")
+        }
+        
+        // After 40 seconds, change to generating stars every 0.5 seconds
+        let switchToHalfSecondsE = SKAction.wait(forDuration: 40.0)
+        let generateStarsEveryHalfSecondsE = SKAction.repeatForever(SKAction.sequence([SKAction.run(createObstacle), SKAction.wait(forDuration: 0.5)]))
+        let switchToHalfSecondsActionE = SKAction.run {
+            self.removeAction(forKey: "starCycleAction1SecondsE") // Stop the initial cycle
+            self.run(generateStarsEveryHalfSecondsE, withKey: "starCycleActionHalfSecondsE")
+        }
+        
+        let sequence = SKAction.sequence([switchTo3SecondsE, switchTo3SecondsActionE, switchTo2SecondsE, switchTo2SecondsActionE,switchTo1SecondsE, switchTo1SecondsActionE, switchToHalfSecondsE, switchToHalfSecondsActionE])
+        run(sequence)
     }
     
-   /* func startStarsCycle() {
-        let createStarsAction = SKAction.run(createStar)
-        let waitAction = SKAction.wait(forDuration: 2.0)
+    func startObstacleCycle() {
+        let initialDelay = SKAction.wait(forDuration: 9.0)
+        let createObstaclesAction = SKAction.run(createObstacle)
+        let createAndWaitAction = SKAction.sequence([createObstaclesAction, initialDelay])
+        let obstacleCycleAction = SKAction.repeatForever(createAndWaitAction)
         
-        let createAndWaitAction = SKAction.sequence([createStarsAction, waitAction])
-        let starCycleAction = SKAction.repeatForever(createAndWaitAction)
-        
-        run(starCycleAction)
-        
-    }*/
+        run(obstacleCycleAction, withKey: "obstacleCycleAction")
+    }
 }
 
 // MARK: - Player Movement
@@ -279,11 +345,6 @@ extension ArcadeGameScene {
         newStar(at: starPosition)
     }
     
-    private func createEvilStar() {
-        let starPosition = self.randomStarPosition()
-        newEvilStar(at: starPosition)
-    }
-    
     private func newStar(at position: CGPoint) {
         let newStar = SKSpriteNode(imageNamed: "star")
         newStar.name = "Star"
@@ -301,7 +362,7 @@ extension ArcadeGameScene {
         newStar.physicsBody?.categoryBitMask = PhysicsCategory.star
         //body colliding against
         newStar.physicsBody?.contactTestBitMask = PhysicsCategory.moon
-        newStar.physicsBody?.collisionBitMask = PhysicsCategory.moon
+        newStar.physicsBody?.collisionBitMask = PhysicsCategory.none
         
         addChild(newStar)
         
@@ -311,39 +372,65 @@ extension ArcadeGameScene {
         ]))
     }
     
-    private func newEvilStar(at position: CGPoint) {
-        let newStar = SKSpriteNode(imageNamed: "evilStar")
-        newStar.name = "EvilStar"
-        newStar.size = CGSize(width: 30, height: 30)
+}
+
+// MARK: - Obstacles
+extension ArcadeGameScene {
+    
+    private func randomObstaclePosition() -> CGPoint {
+        let initialY: CGFloat = 40
+        let finalY: CGFloat = self.frame.height - 40
         
-        newStar.position = position
+        let positionY = CGFloat.random(in: initialY...finalY)
+        let positionX = frame.width - 40
+        
+        return CGPoint(x: positionX, y: positionY)
+    }
+    
+    private func createObstacle() {
+        let obstaclePosition = self.randomObstaclePosition()
+        newObstacle(at: obstaclePosition)
+    }
+    
+    class Obstacle: SKSpriteNode {
+            // Add any properties or methods specific to the star class here
+        }
+    
+    private func newObstacle(at position: CGPoint) {
+        let obstacleNames = ["astronaut", "meteorite", "satellite"]
+        let randomObstacleName = obstacleNames.randomElement() ?? "satellite"
+        
+        let obstacle = SKSpriteNode(imageNamed: randomObstacleName)
+        obstacle.name = "Obstacle"
+        obstacle.size = CGSize(width: 50, height: 50)
+        
+        obstacle.position = position
         // we add this
         //add gravity to the asteroid
-        newStar.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
-        newStar.physicsBody?.affectedByGravity = true
+        obstacle.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
+        obstacle.physicsBody?.affectedByGravity = true
         
         //we added this
         //configure the physics bodies
         //body we are configuration
-       /* newStar.physicsBody?.categoryBitMask = PhysicsCategory.star
+        obstacle.physicsBody?.categoryBitMask = PhysicsCategory.obstacle
         //body colliding against
-        newStar.physicsBody?.contactTestBitMask = PhysicsCategory.moon
-        newStar.physicsBody?.collisionBitMask = PhysicsCategory.moon*/
+        //obstacle.physicsBody?.contactTestBitMask = PhysicsCategory.moon
+        obstacle.physicsBody?.collisionBitMask = PhysicsCategory.moon
         
-        addChild(newStar)
+        addChild(obstacle)
         
-        newStar.run(SKAction.sequence([
+        obstacle.run(SKAction.sequence([
             SKAction.wait(forDuration: 5.0),
             SKAction.removeFromParent()
         ]))
     }
     
-    
-    
 }
 
 
-//MARK: -create Moon
+
+//MARK: create Moon
 extension ArcadeGameScene {
     
     func createMoon() {
@@ -368,12 +455,14 @@ extension ArcadeGameScene {
         moon.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
         moon.physicsBody?.affectedByGravity = false
         moon.physicsBody?.categoryBitMask = PhysicsCategory.moon
+        //body colliding against stars
         moon.physicsBody?.contactTestBitMask = PhysicsCategory.star
-        moon.physicsBody?.collisionBitMask = PhysicsCategory.none
+        //moon.physicsBody?.contactTestBitMask = PhysicsCategory.obstacle
 
-        addChild(moon)
+        moon.physicsBody?.collisionBitMask = PhysicsCategory.obstacle
 
-        // Start moon animation
+ 
+        addChild(self.moon)
         startMoonAnimation()
     }
     
@@ -402,34 +491,48 @@ extension ArcadeGameScene {
 
 //MARK: -create moving ground
 extension ArcadeGameScene{
-        
-        func createGrounds(){
-            for i in 0...2{
-                
-                let ground = SKSpriteNode(imageNamed: "cloudLayer1")
-                ground.name = "Ground"
-                ground.size = CGSize(width: (self.scene?.size.width)!, height: 300)
-                ground.anchorPoint = CGPoint(x: 0, y:0)
-                ground.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 2))
-                //try
-                ground.zPosition = -1
-                self.addChild(ground)
-                
-                
+    
+    func createGrounds(){
+        for i in 0...2{
+            
+            let ground = SKSpriteNode(imageNamed: "cloudLayer1")
+            ground.name = "Ground"
+            ground.size = CGSize(width: (self.scene?.size.width)!, height: 300)
+            ground.anchorPoint = CGPoint(x: 0, y:0)
+            ground.position = CGPoint(x: CGFloat(i) * ground.size.width, y: -(self.frame.size.height / 2))
+            //try
+            ground.zPosition = -1
+            self.addChild(ground)
+            
+            
+        }
+    }
+    
+    func moveGrounds(){
+        self.enumerateChildNodes(withName: "Ground", using: ({
+            (node, error) in
+            
+            node.position.x -= self.cloudVelocity
+            
+            if node.position.x < -((self.scene?.size.width)!){
+                node.position.x += (self.scene?.size.width)! * 3
             }
-        }
-        
-        func moveGrounds(){
-            self.enumerateChildNodes(withName: "Ground", using: ({
-                (node, error) in
-                
-                node.position.x -= 2
-                
-                if node.position.x < -((self.scene?.size.width)!){
-                    node.position.x += (self.scene?.size.width)! * 3
-                }
-            }))
-        }
+        }))
+    }
+    
+    /*func moveGrounds(){
+        self.enumerateChildNodes(withName: "Ground", using: ({
+            (node, error) in
+
+            // Increase position.x by a certain amount
+            node.position.x += 2 // Adjust the value as needed
+
+            // Reset the position if it goes too far
+            if node.position.x > self.scene!.size.width {
+                node.position.x -= self.scene!.size.width * 3
+            }
+        }))
+    }*/
     
     //MARK: background
     func createBackground(){
@@ -438,7 +541,7 @@ extension ArcadeGameScene{
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.zPosition = -5
         addChild(background)
-
+        
     }
 }
 
@@ -450,35 +553,28 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
         let firstBody: SKPhysicsBody = contact.bodyA
         let secondBody: SKPhysicsBody = contact.bodyB
 
-        if let node = firstBody.node {
-            print("Contact with body A: \(node.name ?? "No Name")")
-            if node.name == "Star" {
-                print("Removed star node from parent.")
-                node.removeFromParent()
-                if node.parent == nil {
-                    print("Star node has no parent.")
-                } else {
-                    print("Star node's parent: \(node.parent!.name ?? "No Parent Name")")
-                }
+        // Determine which node is the moon and which is the star or obstacle
+        let moonNode = firstBody.categoryBitMask == PhysicsCategory.moon ? firstBody.node : secondBody.node
+        let otherNode = firstBody.categoryBitMask == PhysicsCategory.moon ? secondBody.node : firstBody.node
+
+        // Check for contact with a star
+        if otherNode?.name == "Star" {
+            print("Contact with a star. Removing star node.")
+            otherNode?.removeFromParent()
+            if otherNode?.parent == nil {
+                print("Star node has no parent.")
+            } else {
+                print("Star node's parent: \(otherNode?.parent?.name ?? "No Parent Name")")
             }
         }
-
-        if let node = secondBody.node {
-            print("Contact with body B: \(node.name ?? "No Name")")
-            if node.name == "Star" {
-                print("Removed star node from parent.")
-                node.removeFromParent()
-                if node.parent == nil {
-                    print("Star node has no parent.")
-                } else {
-                    print("Star node's parent: \(node.parent!.name ?? "No Parent Name")")
-                }
-            }
+        // Check for contact with an obstacle
+        else if otherNode?.name == "Obstacle" {
+            print("Contact with an obstacle.")
+            // Add any specific actions you want to happen when the moon contacts an obstacle
         }
 
-
-        print("Contact happened!")
+        // Logging to confirm contact has occurred
+        print("Contact happened between \(firstBody.node?.name ?? "No Name") and \(secondBody.node?.name ?? "No Name")")
     }
-
 }
 
