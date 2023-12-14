@@ -10,9 +10,9 @@ import SwiftUI
 struct OnboardingView: View {
     @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
     private let onboardingData: [OnboardingData] = [
-        OnboardingData(title: "Control the moon", description: "Drag the moon to control its movement. Collect stars to light up your lunar journey."),
-        OnboardingData(title: "Collect the stars", description: "Collect stars for upgrades, power-ups, and a dazzling high score."),
-        OnboardingData(title: "Avoid the enemies", description: "Navigate carefully, avoiding enemies while collecting stars, and become the ultimate cosmic star collector!"),
+        OnboardingData(title: "Control the moon", description: "Drag the moon to up and down to control its movement. Collect stars to light up your lunar journey."),
+        OnboardingData(title: "Collect the stars", description: "Collect stars for upgrades, power-ups, and a dazzling high score, don't forget to brag to your friends!"),
+        OnboardingData(title: "Avoid the enemies", description: "Watch you back there cause the sun is there to get ya! lets catch all the stars before it does, shall we?"),
     ]
     @State private var currentPage = 0
 
