@@ -391,7 +391,7 @@ extension ArcadeGameScene {
         //body we are configuration
         obstacle.physicsBody?.categoryBitMask = PhysicsCategory.obstacle
         //body colliding against
-        //obstacle.physicsBody?.contactTestBitMask = PhysicsCategory.moon
+        obstacle.physicsBody?.contactTestBitMask = PhysicsCategory.moon
         obstacle.physicsBody?.collisionBitMask = PhysicsCategory.moon
         
         addChild(obstacle)
@@ -539,6 +539,8 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
         }
         // Check for contact with an obstacle
         else if otherNode?.name == "Obstacle" {
+            //otherNode?.removeFromParent()
+            otherNode?.physicsBody?.contactTestBitMask = PhysicsCategory.none
             print("Contact with an obstacle.")
             gameLogic.lifesAfterCollision()
             // Add any specific actions you want to happen when the moon contacts an obstacle
