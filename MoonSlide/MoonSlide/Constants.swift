@@ -37,7 +37,7 @@ typealias Instruction = (icon: String, title: String, description: String)
  */
 
 struct MainScreenProperties {
-    static let gameTitle: String = "EARTH DEFENDER"
+    static let gameTitle: String = "Moon Slide"
     
     static let gameInstructions: [Instruction] = [
         (icon: "hand.tap", title: "Tap to Move", description: "Tap on the left and right of the screen to activate the space ship engines."),

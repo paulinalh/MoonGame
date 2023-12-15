@@ -86,7 +86,8 @@ struct OnboardingView: View {
             }
         } else {
             //change this to main view when you guys finish your merge
-            ArcadeGameView(currentGameState: $currentGameState)
+            MainScreenView(currentGameState: $currentGameState)
+            //ArcadeGameView(currentGameState: $currentGameState)
         }
     }
 }
