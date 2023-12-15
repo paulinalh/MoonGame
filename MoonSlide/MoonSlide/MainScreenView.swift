@@ -32,10 +32,12 @@ struct MainScreenView: View {
         
         ZStack{
             
-            Image("menuImage") // Replace "yourImageName" with the actual name of your image asset
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 950, height: 400)
+            Image("background4")
+                .resizable()
+                .scaledToFill()
+                .frame(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+                .edgesIgnoringSafeArea(.all)
+
             
             VStack(alignment: .center){
                 
@@ -47,22 +49,24 @@ struct MainScreenView: View {
                         withAnimation { self.startGame() }
                     } label: {
                         Text("PLAY")
+                            .bold()
                             .padding()
-                            .frame(maxWidth: 200)
+                            .frame(maxWidth: 160)
                     }
-                    .foregroundColor(.white)
-                    .background(self.accentColor)
+                    .foregroundColor(.black)
+                    .background(.white)
                     .cornerRadius(100.0)
                     
                     Button {
                         withAnimation { self.startGame() }
                     } label: {
                         Text("LEADERBOARD")
+                            .bold()
                             .padding()
-                            .frame(maxWidth: 200)
+                            .frame(maxWidth: 160)
                     }
-                    .foregroundColor(.white)
-                    .background(self.accentColor)
+                    .foregroundColor(.black)
+                    .background(.white)
                     .cornerRadius(100.0)
                     
                 }
@@ -75,7 +79,6 @@ struct MainScreenView: View {
             
         }.padding()
             .statusBar(hidden: true)
-            .background(Color.darkBlue)
         
         
     }

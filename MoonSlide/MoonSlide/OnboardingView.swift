@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     
-    @State var currentGameState: GameState = .mainScreen
+    @Binding var currentGameState: GameState
 
     @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
     private let onboardingData: [OnboardingData] = [
@@ -100,5 +100,5 @@ struct OnboardingData {
 
 
 #Preview {
-    OnboardingView()
+    OnboardingView(currentGameState: .constant(GameState.firstlaunch))
 }

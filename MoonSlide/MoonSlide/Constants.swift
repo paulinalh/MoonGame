@@ -22,6 +22,7 @@ import SwiftUI
  */
 
 enum GameState {
+    case firstlaunch
     case mainScreen
     case playing
     case gameOver

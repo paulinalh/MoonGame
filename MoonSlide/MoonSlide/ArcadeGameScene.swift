@@ -391,7 +391,7 @@ extension ArcadeGameScene {
         //body we are configuration
         obstacle.physicsBody?.categoryBitMask = PhysicsCategory.obstacle
         //body colliding against
-        //obstacle.physicsBody?.contactTestBitMask = PhysicsCategory.moon
+        obstacle.physicsBody?.contactTestBitMask = PhysicsCategory.moon
         obstacle.physicsBody?.collisionBitMask = PhysicsCategory.moon
         
         addChild(obstacle)
