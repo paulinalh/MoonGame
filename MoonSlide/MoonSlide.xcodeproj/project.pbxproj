@@ -27,6 +27,7 @@
 		E0535CD52B29F0A700E6B347 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD42B29F0A700E6B347 /* MainScreenView.swift */; };
 		E0535CD72B29F0BF00E6B347 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD62B29F0BF00E6B347 /* GameOverView.swift */; };
 		E0535CD92B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */; };
+		E0535CDD2B2BDA5D00E6B347 /* LifeBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CDC2B2BDA5C00E6B347 /* LifeBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		E0535CD42B29F0A700E6B347 /* MainScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		E0535CD62B29F0BF00E6B347 /* GameOverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcadeGameTemplateApp.swift; sourceTree = "<group>"; };
+		E0535CDC2B2BDA5C00E6B347 /* LifeBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				E0535CC82B29ED3500E6B347 /* ArcadeGameLogic.swift */,
 				E0535CCC2B29EF8F00E6B347 /* GameDurationView.swift */,
 				E0535CCE2B29EF9700E6B347 /* GameScoreView.swift */,
+				E0535CDC2B2BDA5C00E6B347 /* LifeBarView.swift */,
 				E0535CD02B29F01D00E6B347 /* ContentView.swift */,
 				E0535CD42B29F0A700E6B347 /* MainScreenView.swift */,
 				E0535CD62B29F0BF00E6B347 /* GameOverView.swift */,
@@ -300,6 +303,7 @@
 				E0535CD52B29F0A700E6B347 /* MainScreenView.swift in Sources */,
 				E0535CC92B29ED3500E6B347 /* ArcadeGameLogic.swift in Sources */,
 				E0535CCD2B29EF8F00E6B347 /* GameDurationView.swift in Sources */,
+				E0535CDD2B2BDA5D00E6B347 /* LifeBarView.swift in Sources */,
 				E0535CD72B29F0BF00E6B347 /* GameOverView.swift in Sources */,
 				D146B35C2B2BA45B00BB5A48 /* OnboardingView.swift in Sources */,
 				E0535CCF2B29EF9700E6B347 /* GameScoreView.swift in Sources */,

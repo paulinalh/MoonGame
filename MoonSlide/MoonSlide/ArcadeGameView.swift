@@ -60,17 +60,21 @@ struct ArcadeGameView: View {
                  * Remove it if your game is not based on time.
                  */
                 //GameDurationView(time: $gameLogic.sessionDuration)
-                
+                LifeBarView(life: $gameLogic.lifesRemaining)
+                    .padding(.leading, 30 )
+                    .padding(.top, -15)
                 Spacer()
                 
                 /**
                  * UI element showing the current score of the player.
                  * Remove it if your game is not based on scoring points.
                  */
-                //GameScoreView(score: $gameLogic.currentScore)
+               GameScoreView(score: $gameLogic.currentScore)
             }
             .padding()
-            .padding(.top, 40)
+            .padding(.top, 10)
+            .padding(.trailing, 40)
+            //.frame(alignment: .trailing)
         }
         .onChange(of: gameLogic.isGameOver) { _ in
             if gameLogic.isGameOver {
