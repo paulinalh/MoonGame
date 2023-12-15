@@ -61,8 +61,8 @@ struct ArcadeGameView: View {
                  */
                 //GameDurationView(time: $gameLogic.sessionDuration)
                 LifeBarView(life: $gameLogic.lifesRemaining)
-                    .padding(.leading, 30 )
-                    .padding(.top, -15)
+                    .padding(.leading, 410 )
+                    .padding(.top, -1)
                 Spacer()
                 
                 /**
