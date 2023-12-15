@@ -20,60 +20,64 @@ struct MainScreenView: View {
     @Binding var currentGameState: GameState
     
     // Change it on the Constants.swift file
-    var gameTitle: String = MainScreenProperties.gameTitle
+    //var gameTitle: String = MainScreenProperties.gameTitle
     
     // Change it on the Constants.swift file
-    var gameInstructions: [Instruction] = MainScreenProperties.gameInstructions
+    //var gameInstructions: [Instruction] = MainScreenProperties.gameInstructions
     
     // Change it on the Constants.swift file
     let accentColor: Color = MainScreenProperties.accentColor
     
     var body: some View {
-        VStack(alignment: .center, spacing: 16.0) {
+        
+        ZStack{
             
-            /**
-             * # PRO TIP!
-             * The game title can be customized to represent the visual identity of the game
-             */
-            Text("\(self.gameTitle)")
-                .font(.title)
-                .fontWeight(.black)
-                .padding(.top, 24.0)
+            Image("menuImage") // Replace "yourImageName" with the actual name of your image asset
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 950, height: 400)
             
-            Spacer()
-            
-            /**
-             * To customize the instructions, check the **Constants.swift** file
-             */
-            ForEach(self.gameInstructions, id: \.title) { instruction in
-                GroupBox(label: Label("\(instruction.title)", systemImage: "\(instruction.icon)").foregroundColor(self.accentColor)) {
-                    HStack {
-                        Text("\(instruction.description)")
-                            .font(.callout)
-                        Spacer()
+            VStack(alignment: .center){
+                
+                Spacer()
+                
+                HStack(alignment: .center, spacing: 200.0) {
+                    
+                    Button {
+                        withAnimation { self.startGame() }
+                    } label: {
+                        Text("PLAY")
+                            .padding()
+                            .frame(maxWidth: 200)
                     }
+                    .foregroundColor(.white)
+                    .background(self.accentColor)
+                    .cornerRadius(100.0)
+                    
+                    Button {
+                        withAnimation { self.startGame() }
+                    } label: {
+                        Text("LEADERBOARD")
+                            .padding()
+                            .frame(maxWidth: 200)
+                    }
+                    .foregroundColor(.white)
+                    .background(self.accentColor)
+                    .cornerRadius(100.0)
+                    
                 }
+                .padding()
+                .statusBar(hidden: true)
+                
             }
             
-            Spacer()
+
             
-            /**
-             * Customize the appearance of the **Insert a Coin** button to match the visual identity of your game
-             */
-            Button {
-                withAnimation { self.startGame() }
-            } label: {
-                Text("PROTECT EARTH")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-            }
-            .foregroundColor(.white)
-            .background(self.accentColor)
-            .cornerRadius(10.0)
-            
-        }
-        .padding()
-        .statusBar(hidden: true)
+        }.padding()
+            .statusBar(hidden: true)
+            .background(Color.darkBlue)
+        
+        
     }
     
     /**
