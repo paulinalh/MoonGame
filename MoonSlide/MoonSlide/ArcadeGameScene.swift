@@ -529,6 +529,8 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
         if otherNode?.name == "Star" {
             print("Contact with a star. Removing star node.")
             otherNode?.removeFromParent()
+            gameLogic.score(points: 100)
+            print(gameLogic.currentScore)
             if otherNode?.parent == nil {
                 print("Star node has no parent.")
             } else {
@@ -538,6 +540,7 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
         // Check for contact with an obstacle
         else if otherNode?.name == "Obstacle" {
             print("Contact with an obstacle.")
+            gameLogic.lifesAfterCollision()
             // Add any specific actions you want to happen when the moon contacts an obstacle
         }
         

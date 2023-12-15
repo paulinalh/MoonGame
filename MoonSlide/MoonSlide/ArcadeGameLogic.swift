@@ -21,11 +21,13 @@ class ArcadeGameLogic: ObservableObject {
         self.sessionDuration = 0
         
         self.isGameOver = false
+        self.lifesRemaining = 3
     }
     
     // Keeps track of the current score of the player
     @Published var currentScore: Int = 0
-    
+    @Published var maxScore: Int = 2000
+    @Published var lifesRemaining: Int = 3
     // Increases the score by a certain amount of points
     func score(points: Int) {
         
@@ -34,6 +36,9 @@ class ArcadeGameLogic: ObservableObject {
         self.currentScore = self.currentScore + points
     }
     
+    func lifesAfterCollision(){
+        self.lifesRemaining = self.lifesRemaining - 1
+    }
     // Keep tracks of the duration of the current session in number of seconds
     @Published var sessionDuration: TimeInterval = 0
     
