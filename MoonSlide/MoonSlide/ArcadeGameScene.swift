@@ -26,7 +26,8 @@ struct PhysicsCategory {
 class ArcadeGameScene: SKScene {
     var moonWalkingFrames: [SKTexture] = []
     
-    
+    var sun: SKSpriteNode!
+    var shadow: SKSpriteNode!
     var ground = SKSpriteNode()
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
@@ -88,6 +89,11 @@ class ArcadeGameScene: SKScene {
         }else{
             moveGrounds()
         }
+        if currentTime - self.lastUpdate > 10 {
+               // Remove the sun and its shadow after 10 seconds
+               sun.removeFromParent()
+               shadow.removeFromParent()
+           }
         
     }
     
@@ -101,6 +107,10 @@ extension ArcadeGameScene {
         createBackground()
         createMoon()
         createGrounds()
+        createSun()
+        createShadow()
+        //createShadow2()
+
         self.startStarsCycle()
         self.startObstaclesCycle()
         //self.startObstacleCycle()
@@ -406,7 +416,7 @@ extension ArcadeGameScene {
 
 
 
-//MARK: create Moon
+//MARK: -create Moon
 extension ArcadeGameScene {
     
     func createMoon() {
@@ -504,7 +514,7 @@ extension ArcadeGameScene{
     
     //MARK: background
     func createBackground(){
-        let background = SKSpriteNode(imageNamed: "background") // Use the name of your image asset
+        let background = SKSpriteNode(imageNamed: "background0") // Use the name of your image asset
         background.size = size
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.zPosition = -5
@@ -551,3 +561,55 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
     }
 }
 
+//MARK: -Sun
+extension ArcadeGameScene {
+
+    func createSun() {
+        // Load sun texture
+        let sunTexture = SKTexture(imageNamed: "sun0")
+        
+        // Create sun sprite
+        sun = SKSpriteNode(texture: sunTexture)
+        sun.size = CGSize(width: 250, height: 250) // Adjust the size as needed
+        
+        // Set up initial position with only half of the right side of the picture visible
+        sun.position = CGPoint(x: sun.size.width / 20 , y: self.frame.height - sun.size.height / 12)
+        
+        addChild(sun)
+    }
+    func createShadow() {
+         // Create a shadow sprite
+         shadow = SKSpriteNode(color: .yellow, size: CGSize(width: self.frame.width / 2, height: self.frame.height))
+         shadow.position = CGPoint(x: self.frame.width / 4, y: self.frame.height / 2)
+         shadow.alpha = 0.08 // Adjust the transparency as needed
+         
+         // Create an effect node to apply a filter
+         let effectNode = SKEffectNode()
+         effectNode.addChild(shadow)
+         
+         // Apply a Gaussian blur to the effect node
+         let blur = CIFilter(name: "CIGaussianBlur")
+         blur?.setValue(200 , forKey: "inputRadius") // Adjust the blur radius as needed
+         effectNode.filter = blur
+         
+         addChild(effectNode)
+     }
+    /*func createShadow2() {
+         // Create a shadow sprite
+         shadow = SKSpriteNode(color: .black, size: CGSize(width: self.frame.width / 2, height: self.frame.height))
+         shadow.position = CGPoint(x: self.frame.width / 4, y: self.frame.height / 2)
+         shadow.alpha = 0.08 // Adjust the transparency as needed
+         
+         // Create an effect node to apply a filter
+         let effectNode = SKEffectNode()
+         effectNode.addChild(shadow)
+         
+         // Apply a Gaussian blur to the effect node
+         let blur = CIFilter(name: "CIGaussianBlur")
+         blur?.setValue(200 , forKey: "inputRadius") // Adjust the blur radius as needed
+         effectNode.filter = blur
+         
+         addChild(effectNode)
+     }*/
+    
+}

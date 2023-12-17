@@ -77,8 +77,7 @@ struct OnboardingView: View {
                             }
                                 .padding(.bottom, 20)
                             .frame(maxWidth: .infinity, alignment: .trailing),
-                            alignment: Alignment.bottomTrailing
-                        )
+                            alignment: Alignment.bottomTrailing)
                         
                                             }
                     .padding(.top, 20)
