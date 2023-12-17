@@ -34,7 +34,7 @@ class ArcadeGameScene: SKScene {
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
     var moon = SKSpriteNode()
-    var sun = SKSpriteNode()
+    //var sun = SKSpriteNode()
 
     var timeSinceUpdateCloudsVelocity : TimeInterval = 0
     var cloudVelocity : TimeInterval = 2
