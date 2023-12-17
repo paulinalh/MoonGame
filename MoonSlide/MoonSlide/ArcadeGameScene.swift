@@ -21,6 +21,8 @@ struct PhysicsCategory {
     static let moon : UInt32 = 0b1
     static let star : UInt32 = 0b10
     static let obstacle : UInt32 = 0b100
+    static let sun : UInt32 = 0b1000
+
 }
 
 class ArcadeGameScene: SKScene {
@@ -32,6 +34,8 @@ class ArcadeGameScene: SKScene {
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
     var moon = SKSpriteNode()
+    var sun = SKSpriteNode()
+
     var timeSinceUpdateCloudsVelocity : TimeInterval = 0
     var cloudVelocity : TimeInterval = 2
     private var currentNode: SKNode?
@@ -68,6 +72,8 @@ class ArcadeGameScene: SKScene {
         // If the game over condition is met, the game will finish
         if self.isGameOver { self.finishGame() }
         
+
+        
         // The first time the update function is called we must initialize the
         // lastUpdate variable
         if self.lastUpdate == 0 {
@@ -95,6 +101,8 @@ class ArcadeGameScene: SKScene {
                shadow.removeFromParent()
            }
         
+        
+        
     }
     
 }
@@ -113,7 +121,7 @@ extension ArcadeGameScene {
 
         self.startStarsCycle()
         self.startObstaclesCycle()
-        //self.startObstacleCycle()
+        
         
     }
     
@@ -290,11 +298,13 @@ extension ArcadeGameScene {
      **/
     
     var isGameOver: Bool {
-        // TODO: Customize!
+        // If 0 lifes GAME OVER
+
+        if gameLogic.lifesRemaining == 0{
+            gameLogic.isGameOver = true
+        }
         
-        // Did you reach the time limit?
-        // Are the health points depleted?
-        // Did an enemy cross a position it should not have crossed?
+       
         
         return gameLogic.isGameOver
     }
@@ -478,8 +488,6 @@ extension ArcadeGameScene {
     
     
 }
-
-
 
 //MARK: -create moving ground
 extension ArcadeGameScene{
