@@ -15,7 +15,7 @@ struct ContentView: View {
     
     // The navigation of the app is based on the state of the game.
     // Each state presents a different view on the SwiftUI app structure
-    @State var currentGameState: GameState = .mainScreen
+    @State var currentGameState: GameState = .firstlaunch
     
     // The game logic is a singleton object shared among the different views of the application
     @StateObject var gameLogic: ArcadeGameLogic = ArcadeGameLogic()
@@ -23,11 +23,17 @@ struct ContentView: View {
     var body: some View {
         
         switch currentGameState {
+        case .firstlaunch:
+            //MainScreenView(currentGameState: $currentGameState)
+                          //.environmentObject(gameLogic)
+            OnboardingView(currentGameState: $currentGameState)
+                .environmentObject(gameLogic)
+            
         case .mainScreen:
             MainScreenView(currentGameState: $currentGameState)
-                            .environmentObject(gameLogic)
-            /*OnboardingView()
-                .environmentObject(gameLogic)*/
+                          .environmentObject(gameLogic)
+            //OnboardingView()
+                //.environmentObject(gameLogic)
         
         case .playing:
             ArcadeGameView(currentGameState: $currentGameState)
