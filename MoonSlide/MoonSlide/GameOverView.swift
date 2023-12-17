@@ -20,35 +20,52 @@ struct GameOverView: View {
     
     var body: some View {
         ZStack {
-            Color.white
+            
+            Image("background")
+                .resizable()
+                .scaledToFill()
                 .ignoresSafeArea()
             
-            VStack(alignment: .center) {
-                Spacer()
+            VStack{
                 
-                Button {
-                    withAnimation { self.backToMainScreen() }
-                } label: {
-                    Image(systemName: "arrow.backward")
-                        .foregroundColor(.black)
-                        .font(.title)
+                Image("gameOver") // Replace "yourImageName" with the actual name of your image asset
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 400, height: 300)
+                
+               
+                
+                HStack(alignment: .center) {
+                    Spacer()
+                    
+                    Button {
+                        withAnimation { self.backToMainScreen() }
+                    } label: {
+                        Image(systemName: "arrow.backward")
+                            .foregroundColor(.black)
+                            .font(.title)
+                    }
+                    .background(Circle().foregroundColor(Color(uiColor: UIColor.systemGray6)).frame(width: 70, height: 70, alignment: .center))
+                    
+                    Spacer()
+                    
+                    Button {
+                        withAnimation { self.restartGame() }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                            .foregroundColor(.black)
+                            .font(.title)
+                    }
+                    .background(Circle().foregroundColor(Color(uiColor: UIColor.systemGray6)).frame(width: 70, height: 70, alignment: .center))
+                    
+                    Spacer()
                 }
-                .background(Circle().foregroundColor(Color(uiColor: UIColor.systemGray6)).frame(width: 100, height: 100, alignment: .center))
                 
-                Spacer()
-                
-                Button {
-                    withAnimation { self.restartGame() }
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                        .foregroundColor(.black)
-                        .font(.title)
-                }
-                .background(Circle().foregroundColor(Color(uiColor: UIColor.systemGray6)).frame(width: 100, height: 100, alignment: .center))
-                
-                Spacer()
             }
+            
+            
         }
+        
         .statusBar(hidden: true)
     }
     
