@@ -56,18 +56,8 @@ struct MainScreenView: View {
                     .foregroundColor(.black)
                     .background(.white)
                     .cornerRadius(100.0)
-                    
-                    Button {
-                        withAnimation { self.startGame() }
-                    } label: {
-                        Text("LEADERBOARD")
-                            .bold()
-                            .padding()
-                            .frame(maxWidth: 160)
-                    }
-                    .foregroundColor(.black)
-                    .background(.white)
-                    .cornerRadius(100.0)
+                   
+                    Spacer()
                     
                 }
                 .padding()

@@ -16,6 +16,7 @@ import SwiftUI
 struct GameScoreView: View {
     @Binding var score: Int
     var gameLogic: ArcadeGameLogic = ArcadeGameLogic.shared
+    @AppStorage("highScore") var highScore: Int = 0
 
     var body: some View {
         GeometryReader { geometry in
@@ -29,20 +30,21 @@ struct GameScoreView: View {
                 // Progress Bar with Gradient, clipped to maintain corner radius
                 RoundedRectangle(cornerRadius: 38) // Slightly smaller radius for the inner rectangle
                     .fill(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.orange]), startPoint: .leading, endPoint: .trailing))
-                    .frame(width: min(geometry.size.width * CGFloat(gameLogic.currentScore) / CGFloat(gameLogic.maxScore), geometry.size.width), height: 26) // Slightly smaller height for the inner rectangle
+                    .frame(width: min(geometry.size.width * CGFloat(gameLogic.currentScore) / CGFloat(highScore), geometry.size.width), height: 26) // Slightly smaller height for the inner rectangle
                     .clipShape(RoundedRectangle(cornerRadius: 38)) // Clip to round corners
 
                 // Score and Image, aligned to the right
-                HStack {
-                    Spacer()
-                    Image(systemName: "star.fill")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                    Text("\(score)")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                }
-                .padding(.trailing, 20)
+              
+                    HStack {
+                        Spacer()
+                        Image(systemName: "star.fill")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                        Text("\(score)")
+                            .font(.headline)
+                            .foregroundColor(.black)
+                    }
+                    .padding(.trailing, 20)
             }
         }
         .frame(width: 200, height: 30) // Set the height of the progress bar

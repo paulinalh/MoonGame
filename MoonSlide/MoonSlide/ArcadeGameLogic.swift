@@ -10,13 +10,11 @@ import Foundation
 class ArcadeGameLogic: ObservableObject {
     
     // Single instance of the class
-    static let shared: ArcadeGameLogic = ArcadeGameLogic()
-    
+    static let shared: ArcadeGameLogic = ArcadeGameLogic()    
     // Function responsible to set up the game before it starts.
     func setUpGame() {
         
         // TODO: Customize!
-        
         self.currentScore = 0
         self.sessionDuration = 0
         

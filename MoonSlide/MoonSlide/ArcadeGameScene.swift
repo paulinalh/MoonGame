@@ -593,7 +593,7 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
         if otherNode?.name == "Star" {
             print("Contact with a star. Removing star node.")
             otherNode?.removeFromParent()
-            gameLogic.score(points: 100)
+            gameLogic.score(points: 10)
             starsCaught += 1
             if starsCaught >= starsToFillBar {
                 // Call a method to show the sun and its shadow
