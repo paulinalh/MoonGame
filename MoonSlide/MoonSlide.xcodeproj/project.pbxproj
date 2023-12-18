@@ -17,6 +17,7 @@
 		D40C92112B20D8F300505F3B /* MoonSlideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C92102B20D8F300505F3B /* MoonSlideTests.swift */; };
 		D40C921B2B20D8F300505F3B /* MoonSlideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C921A2B20D8F300505F3B /* MoonSlideUITests.swift */; };
 		D40C921D2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40C921C2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift */; };
+		D44EB4BC2B30A04000F7EA71 /* gameOverS.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D44EB4BB2B30A04000F7EA71 /* gameOverS.mp3 */; };
 		E0535CC72B29ECF400E6B347 /* ArcadeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CC62B29ECF400E6B347 /* ArcadeGameScene.swift */; };
 		E0535CC92B29ED3500E6B347 /* ArcadeGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CC82B29ED3500E6B347 /* ArcadeGameLogic.swift */; };
 		E0535CCB2B29EF3700E6B347 /* ArcadeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0535CCA2B29EF3700E6B347 /* ArcadeGameView.swift */; };
@@ -61,6 +62,7 @@
 		D40C92162B20D8F300505F3B /* MoonSlideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoonSlideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D40C921A2B20D8F300505F3B /* MoonSlideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonSlideUITests.swift; sourceTree = "<group>"; };
 		D40C921C2B20D8F300505F3B /* MoonSlideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonSlideUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D44EB4BB2B30A04000F7EA71 /* gameOverS.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = gameOverS.mp3; path = "../../../../../Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/gameOverS.mp3"; sourceTree = "<group>"; };
 		E0535CC62B29ECF400E6B347 /* ArcadeGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcadeGameScene.swift; sourceTree = "<group>"; };
 		E0535CC82B29ED3500E6B347 /* ArcadeGameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcadeGameLogic.swift; sourceTree = "<group>"; };
 		E0535CCA2B29EF3700E6B347 /* ArcadeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcadeGameView.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		D40C91F52B20D8F200505F3B /* MoonSlide */ = {
 			isa = PBXGroup;
 			children = (
+				D44EB4BB2B30A04000F7EA71 /* gameOverS.mp3 */,
 				D40C91F82B20D8F200505F3B /* GameScene.sks */,
 				D40C91FA2B20D8F200505F3B /* Actions.sks */,
 				E0535CD82B29F0EE00E6B347 /* ArcadeGameTemplateApp.swift */,
@@ -268,6 +271,7 @@
 				D146B35A2B2B5AFC00BB5A48 /* Moon.atlas in Resources */,
 				D40C92022B20D8F200505F3B /* Main.storyboard in Resources */,
 				D40C91F92B20D8F200505F3B /* GameScene.sks in Resources */,
+				D44EB4BC2B30A04000F7EA71 /* gameOverS.mp3 in Resources */,
 				D40C92042B20D8F300505F3B /* Assets.xcassets in Resources */,
 				D40C92072B20D8F300505F3B /* LaunchScreen.storyboard in Resources */,
 				D40C91FB2B20D8F200505F3B /* Actions.sks in Resources */,
@@ -488,7 +492,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7X3HJTLUN6;
+				DEVELOPMENT_TEAM = 9A34GM6NJL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoonSlide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
@@ -521,7 +525,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7X3HJTLUN6;
+				DEVELOPMENT_TEAM = 9A34GM6NJL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoonSlide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";

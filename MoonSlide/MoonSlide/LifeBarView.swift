@@ -11,27 +11,32 @@ struct LifeBarView: View {
     
     var gameLogic: ArcadeGameLogic = ArcadeGameLogic.shared
     
-    @Binding var life : Int 
-
+    @Binding var life : Int
+    
     private let maxLives = 3
     private let sectionWidth : CGFloat = 60
     private let sectionHeight : CGFloat = 20
-
+    
     var body: some View {
-        HStack(spacing: 4) {
-            ForEach(0..<maxLives, id: \.self) { index in
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(index < life ? Color.red : Color.gray.opacity(0.3))
-                    .frame(width: sectionWidth, height: sectionHeight)
+        HStack{
+            Image(systemName: "heart.fill").foregroundColor(Color.red).font(.title2)
+            HStack(spacing: 4) {
+                ForEach(0..<maxLives, id: \.self) { index in
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(index < life ? Color.red : Color.gray.opacity(0.3))
+                        .frame(width: sectionWidth, height: sectionHeight)
+                }
             }
+            .padding(15)
+            .frame(width: CGFloat(maxLives) * sectionWidth + CGFloat(maxLives - 1) * 4, height: sectionHeight) // Adjust the total width
+            .cornerRadius(10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.black, lineWidth: 2)
+            )
+            
         }
-        .padding(15)
-        .frame(width: CGFloat(maxLives) * sectionWidth + CGFloat(maxLives - 1) * 4, height: sectionHeight) // Adjust the total width
-        .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.black, lineWidth: 2)
-        )
+        
     }
 }
 

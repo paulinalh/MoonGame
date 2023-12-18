@@ -4,7 +4,7 @@
 //
 
 import SwiftUI
-
+import AVFoundation
 /**
  * # GameOverView
  *   This view is responsible for showing the game over state of the game.
@@ -17,8 +17,24 @@ import SwiftUI
 struct GameOverView: View {
     
     @Binding var currentGameState: GameState
+    @StateObject var gameLogic: ArcadeGameLogic =  ArcadeGameLogic.shared
+    @AppStorage("highScore") var highScore: Int = 0
+    var player: AVAudioPlayer?
     
+    /*init() {
+           // Set up the audio player
+           if let soundURL = Bundle.main.url(forResource: "gameOver", withExtension: "mp3") {
+               do {
+                   // Initialize the player with the sound URL
+                   player = try AVAudioPlayer(contentsOf: soundURL)
+               } catch {
+                   print("Failed to initialize player: \(error)")
+               }
+           }
+       }*/
+
     var body: some View {
+        
         ZStack {
             
             Image("background")
@@ -29,11 +45,11 @@ struct GameOverView: View {
             VStack{
                 
                 Image("gameOver") // Replace "yourImageName" with the actual name of your image asset
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 400, height: 300)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 400, height: 300)
                 
-               
+                
                 
                 HStack(alignment: .center) {
                     Spacer()
@@ -46,6 +62,17 @@ struct GameOverView: View {
                             .font(.title)
                     }
                     .background(Circle().foregroundColor(Color.white).frame(width: 70, height: 70, alignment: .center))
+                    
+                    Spacer()
+                    
+                    HStack{
+                        Image(systemName: "star.fill").foregroundColor(.yellow).font(.largeTitle)
+                        Text("\(gameLogic.currentScore)").foregroundColor(.yellow).font(.largeTitle).fontWeight(.bold)
+                        
+                        Image(systemName: "crown.fill").foregroundColor(.yellow).font(.largeTitle)
+                        Text("\(highScore)").foregroundColor(.yellow).font(.largeTitle).fontWeight(.bold)
+                        
+                    }
                     
                     Spacer()
                     
@@ -62,11 +89,21 @@ struct GameOverView: View {
                 }
                 
             }
+            .padding(.bottom, 50)
             
             
         }
         
         .statusBar(hidden: true)
+        
+        .onAppear{
+            player?.play()
+
+            if gameLogic.currentScore > highScore {
+                highScore = gameLogic.currentScore
+            }
+        }
+        
     }
     
     private func backToMainScreen() {
@@ -77,6 +114,7 @@ struct GameOverView: View {
         self.currentGameState = .playing
     }
 }
+
 
 #Preview {
     GameOverView(currentGameState: .constant(GameState.gameOver))

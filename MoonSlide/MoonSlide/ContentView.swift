@@ -17,6 +17,7 @@ struct ContentView: View {
     // Each state presents a different view on the SwiftUI app structure
     @State var currentGameState: GameState = .firstlaunch
     
+
     // The game logic is a singleton object shared among the different views of the application
     @StateObject var gameLogic: ArcadeGameLogic = ArcadeGameLogic()
     
