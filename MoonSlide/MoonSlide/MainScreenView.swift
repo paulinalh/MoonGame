@@ -44,6 +44,7 @@ struct MainScreenView: View {
                 Spacer()
                 
                 HStack(alignment: .center, spacing: 200.0) {
+                    Spacer()
                     
                     Button {
                         withAnimation { self.startGame() }
@@ -56,8 +57,7 @@ struct MainScreenView: View {
                     .foregroundColor(.black)
                     .background(.white)
                     .cornerRadius(100.0)
-                   
-                    Spacer()
+                    .padding(.horizontal, 100)
                     
                 }
                 .padding()
