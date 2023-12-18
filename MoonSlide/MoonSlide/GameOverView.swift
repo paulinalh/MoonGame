@@ -45,7 +45,7 @@ struct GameOverView: View {
                             .foregroundColor(.black)
                             .font(.title)
                     }
-                    .background(Circle().foregroundColor(Color(uiColor: UIColor.systemGray6)).frame(width: 70, height: 70, alignment: .center))
+                    .background(Circle().foregroundColor(Color.white).frame(width: 70, height: 70, alignment: .center))
                     
                     Spacer()
                     
@@ -56,7 +56,7 @@ struct GameOverView: View {
                             .foregroundColor(.black)
                             .font(.title)
                     }
-                    .background(Circle().foregroundColor(Color(uiColor: UIColor.systemGray6)).frame(width: 70, height: 70, alignment: .center))
+                    .background(Circle().foregroundColor(Color.white).frame(width: 70, height: 70, alignment: .center))
                     
                     Spacer()
                 }

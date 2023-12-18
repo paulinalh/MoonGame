@@ -22,20 +22,27 @@ struct PhysicsCategory {
     static let star : UInt32 = 0b10
     static let obstacle : UInt32 = 0b100
     static let sun : UInt32 = 0b1000
-
+    
 }
 
 class ArcadeGameScene: SKScene {
     var moonWalkingFrames: [SKTexture] = []
+    var sunAndShadowAppeared = false
     
     var sun: SKSpriteNode!
     var shadow: SKSpriteNode!
+    var shadow2: SKSpriteNode!
+    var backgroundImage: SKSpriteNode!
+
+    
     var ground = SKSpriteNode()
     var star = SKSpriteNode()
     var cloud = SKSpriteNode()
     var moon = SKSpriteNode()
     //var sun = SKSpriteNode()
-
+    var starsCaught = 0
+    let starsToFillBar = 10
+    
     var timeSinceUpdateCloudsVelocity : TimeInterval = 0
     var cloudVelocity : TimeInterval = 2
     private var currentNode: SKNode?
@@ -62,7 +69,27 @@ class ArcadeGameScene: SKScene {
         self.setUpGame()
         self.setUpPhysicsWorld()
         self.createBackground()
+        
+        let showSunAndShadowAction = SKAction.run {
+            self.sun.isHidden = false
+            self.shadow.isHidden = false
+            self.shadow2.isHidden = false
+            
+            self.startSunAnimation()
+            self.startShadowAnimation()
+            self.startShadow2Animation()
+            self.animateBackground()
+
+
+        }
+        let delayAction = SKAction.wait(forDuration: 10.0 )
+        let sequence = SKAction.sequence([delayAction, showSunAndShadowAction])
+        
+        self.run(sequence)
     }
+    
+    
+    
     
     override func update(_ currentTime: TimeInterval) {
         //we added this
@@ -72,7 +99,7 @@ class ArcadeGameScene: SKScene {
         // If the game over condition is met, the game will finish
         if self.isGameOver { self.finishGame() }
         
-
+        
         
         // The first time the update function is called we must initialize the
         // lastUpdate variable
@@ -95,12 +122,13 @@ class ArcadeGameScene: SKScene {
         }else{
             moveGrounds()
         }
-        if currentTime - self.lastUpdate > 10 {
-               // Remove the sun and its shadow after 10 seconds
-               sun.removeFromParent()
-               shadow.removeFromParent()
-           }
-        
+        if !sunAndShadowAppeared {
+            // Check if 10 seconds have passed or if not enough stars are caught
+            if currentTime - self.lastUpdate > 10.0 || starsCaught < starsToFillBar {
+                showSunAndShadow()
+                sunAndShadowAppeared = true
+            }
+        }
         
         
     }
@@ -117,8 +145,8 @@ extension ArcadeGameScene {
         createGrounds()
         createSun()
         createShadow()
-        //createShadow2()
-
+        createShadow2()
+        
         self.startStarsCycle()
         self.startObstaclesCycle()
         
@@ -218,7 +246,7 @@ extension ArcadeGameScene {
             self.removeAction(forKey: "obstaclesCycleAction2Seconds") // Stop the initial cycle
             self.run(generateObstaclesEvery1Seconds, withKey: "obstaclesCycleAction1Seconds")
         }
-
+        
         
         let sequence = SKAction.sequence([switchTo3Seconds, switchTo3SecondsAction, switchTo2Seconds, switchTo2SecondsAction,switchTo1Seconds, switchTo1SecondsAction])
         run(sequence)
@@ -299,12 +327,12 @@ extension ArcadeGameScene {
     
     var isGameOver: Bool {
         // If 0 lifes GAME OVER
-
+        
         if gameLogic.lifesRemaining == 0{
             gameLogic.isGameOver = true
         }
         
-       
+        
         
         return gameLogic.isGameOver
     }
@@ -520,14 +548,32 @@ extension ArcadeGameScene{
         }))
     }
     
-    //MARK: background
-    func createBackground(){
-        let background = SKSpriteNode(imageNamed: "background0") // Use the name of your image asset
-        background.size = size
-        background.position = CGPoint(x: frame.midX, y: frame.midY)
-        background.zPosition = -5
-        addChild(background)
+    //MARK: -background
+    func createBackground() {
+        // Create a sprite node for the background
+        backgroundImage = SKSpriteNode(imageNamed: "background") // Use the name of your image asset
+        backgroundImage.size = size
+        backgroundImage.position = CGPoint(x: frame.midX, y: frame.midY)
+        backgroundImage.zPosition = -5
+        addChild(backgroundImage)
+    }
+    func animateBackground() {
+        // Create a sequence of actions for the background animation
+        let fadeOutAction = SKAction.fadeOut(withDuration: 1.0)
+        let changeTextureAction = SKAction.run {
+            // Change the background image to the next one
+            self.backgroundImage.texture = SKTexture(imageNamed: "background0")
+        }
+        let fadeInAction = SKAction.fadeIn(withDuration: 1.0)
         
+        // Create a sequence of fade-out, change texture, and fade-in actions
+        let sequence = SKAction.sequence([fadeOutAction, changeTextureAction, fadeInAction])
+        
+        // Repeat the sequence forever
+        let repeatAction = SKAction.repeatForever(sequence)
+        
+        // Run the repeat action on the background image
+        backgroundImage.run(repeatAction, withKey: "backgroundAnimation")
     }
 }
 
@@ -548,6 +594,11 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
             print("Contact with a star. Removing star node.")
             otherNode?.removeFromParent()
             gameLogic.score(points: 100)
+            starsCaught += 1
+            if starsCaught >= starsToFillBar {
+                // Call a method to show the sun and its shadow
+                showSunAndShadow()
+            }
             print(gameLogic.currentScore)
             if otherNode?.parent == nil {
                 print("Star node has no parent.")
@@ -571,53 +622,120 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
 
 //MARK: -Sun
 extension ArcadeGameScene {
-
+    
     func createSun() {
-        // Load sun texture
         let sunTexture = SKTexture(imageNamed: "sun0")
         
-        // Create sun sprite
         sun = SKSpriteNode(texture: sunTexture)
-        sun.size = CGSize(width: 250, height: 250) // Adjust the size as needed
+        sun.size = CGSize(width: 250, height: 250)
         
-        // Set up initial position with only half of the right side of the picture visible
-        sun.position = CGPoint(x: sun.size.width / 20 , y: self.frame.height - sun.size.height / 12)
+        sun.position = CGPoint(x: sun.size.width / 20, y: self.frame.height - sun.size.height / 12)
+        
+        sun.isHidden = true
         
         addChild(sun)
     }
-    func createShadow() {
-         // Create a shadow sprite
-         shadow = SKSpriteNode(color: .yellow, size: CGSize(width: self.frame.width / 2, height: self.frame.height))
-         shadow.position = CGPoint(x: self.frame.width / 4, y: self.frame.height / 2)
-         shadow.alpha = 0.08 // Adjust the transparency as needed
-         
-         // Create an effect node to apply a filter
-         let effectNode = SKEffectNode()
-         effectNode.addChild(shadow)
-         
-         // Apply a Gaussian blur to the effect node
-         let blur = CIFilter(name: "CIGaussianBlur")
-         blur?.setValue(200 , forKey: "inputRadius") // Adjust the blur radius as needed
-         effectNode.filter = blur
-         
-         addChild(effectNode)
-     }
-    /*func createShadow2() {
-         // Create a shadow sprite
-         shadow = SKSpriteNode(color: .black, size: CGSize(width: self.frame.width / 2, height: self.frame.height))
-         shadow.position = CGPoint(x: self.frame.width / 4, y: self.frame.height / 2)
-         shadow.alpha = 0.08 // Adjust the transparency as needed
-         
-         // Create an effect node to apply a filter
-         let effectNode = SKEffectNode()
-         effectNode.addChild(shadow)
-         
-         // Apply a Gaussian blur to the effect node
-         let blur = CIFilter(name: "CIGaussianBlur")
-         blur?.setValue(200 , forKey: "inputRadius") // Adjust the blur radius as needed
-         effectNode.filter = blur
-         
-         addChild(effectNode)
-     }*/
     
+    func createShadow() {
+        let shadowTexture = SKTexture(imageNamed: "shadow")
+        
+        shadow = SKSpriteNode(texture: shadowTexture)
+        shadow.size = CGSize(width: self.frame.width , height: self.frame.height * 4)
+        shadow.position = CGPoint(x: self.frame.width / 6, y: self.frame.height / 2)
+        
+        shadow.isHidden = true
+        
+        let effectNode = SKEffectNode()
+        effectNode.addChild(shadow)
+        
+        let blur = CIFilter(name: "CIGaussianBlur")
+        blur?.setValue(100, forKey: "inputRadius")
+        effectNode.filter = blur
+        
+        addChild(effectNode)
+    }
+    
+    func createShadow2() {
+        let shadowTexture2 = SKTexture(imageNamed: "shadowdark")
+        
+        shadow2 = SKSpriteNode(texture: shadowTexture2)
+        shadow2.size = CGSize(width: self.frame.width , height: self.frame.height * 3)
+        shadow2.position = CGPoint(x: self.frame.width * 3 / 4, y: self.frame.height / 2)
+        
+        shadow2.isHidden = true
+        
+        let effectNode2 = SKEffectNode()
+        effectNode2.addChild(shadow2)
+        
+        let blur2 = CIFilter(name: "CIGaussianBlur")
+        blur2?.setValue(150, forKey: "inputRadius") // Adjust the blur radius as needed
+        effectNode2.filter = blur2
+        
+        addChild(effectNode2)
+    }
+    
+    func showSunAndShadow() {
+        guard sun.parent == nil && shadow.parent == nil && shadow2.parent == nil else {
+            return  // Sun and shadow are already added, do nothing
+        }
+
+        sun.removeFromParent()
+        shadow.removeFromParent()
+        shadow2.removeFromParent()
+
+        // Add the sun and shadow nodes after a delay
+        let delayAction = SKAction.wait(forDuration: 10)  // Adjust the delay duration as needed
+        let addSunAndShadowAction = SKAction.run {
+            self.addChild(self.sun)
+            self.addChild(self.shadow)
+            self.addChild(self.shadow2)
+
+            self.startSunAnimation()
+            self.startShadowAnimation()
+            self.startShadow2Animation()
+            
+            // Start the background animation
+            self.animateBackground()
+        }
+        let sequence = SKAction.sequence([delayAction, addSunAndShadowAction])
+        run(sequence, withKey: "sunAndShadowAction")
+    }
+
+    
+    
+    
+    
+    
+    func startSunAnimation() {
+        let initialPosition = CGPoint(x: -self.frame.width, y: sun.position.y)
+        let targetPosition = CGPoint(x: self.frame.width / 40, y: sun.position.y)
+        
+        let moveAction = SKAction.move(to: targetPosition, duration: 4)
+        moveAction.timingMode = .easeInEaseOut
+        
+        sun.position = initialPosition
+        sun.run(moveAction)
+    }
+    
+    func startShadowAnimation() {
+        let initialPosition = CGPoint(x: -self.frame.width, y: shadow.position.y)
+        let targetPosition = CGPoint(x: self.frame.width / 10, y: shadow.position.y)
+        
+        let moveAction = SKAction.move(to: targetPosition, duration: 4)
+        moveAction.timingMode = .easeInEaseOut
+        
+        shadow.position = initialPosition
+        shadow.run(moveAction)
+    }
+    func startShadow2Animation() {
+        let initialPosition = CGPoint(x: self.frame.width + shadow2.size.width, y: shadow2.position.y)
+        let targetPosition = CGPoint(x: self.frame.width * 4 / 5, y: shadow2.position.y)
+        
+        let moveAction = SKAction.move(to: targetPosition, duration: 4)
+        moveAction.timingMode = .easeInEaseOut
+        
+        shadow2.position = initialPosition
+        shadow2.run(moveAction)
+    }
+
 }
