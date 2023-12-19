@@ -12,6 +12,8 @@
 
 import SpriteKit
 import SwiftUI
+import AVFoundation
+
 
 //we added this
 //creating the physics categories
@@ -28,7 +30,12 @@ struct PhysicsCategory {
 class ArcadeGameScene: SKScene {
     var moonWalkingFrames: [SKTexture] = []
     var sunAndShadowAppeared = false
-    
+    var zapSoundPlayer: AVAudioPlayer?
+    var hitSoundPlayer: AVAudioPlayer?
+    var gameoverSoundPlayer: AVAudioPlayer?
+
+
+
     var sun: SKSpriteNode!
     var shadow: SKSpriteNode!
     var shadow2: SKSpriteNode!
@@ -79,9 +86,42 @@ class ArcadeGameScene: SKScene {
             self.startShadowAnimation()
             self.startShadow2Animation()
             self.animateBackground()
-
-
         }
+        
+        if let zapSoundPath = Bundle.main.path(forResource: "test", ofType: "wav") {
+                let zapSoundURL = URL(fileURLWithPath: zapSoundPath)
+                do {
+                    zapSoundPlayer = try AVAudioPlayer(contentsOf: zapSoundURL)
+                    zapSoundPlayer?.prepareToPlay()
+                } catch {
+                    print("Error loading zap sound effect: \(error.localizedDescription)")
+                }
+            } else {
+                print("Could not find test.wav in the app bundle.")
+            }
+        if let hitSoundPath = Bundle.main.path(forResource: "hit", ofType: "wav") {
+                let hitSoundURL = URL(fileURLWithPath: hitSoundPath)
+                do {
+                    hitSoundPlayer = try AVAudioPlayer(contentsOf: hitSoundURL)
+                    hitSoundPlayer?.prepareToPlay()
+                } catch {
+                    print("Error loading hit sound effect: \(error.localizedDescription)")
+                }
+            } else {
+                print("Could not find hit.wav in the app bundle.")
+            }
+        if let gameoverSoundPath = Bundle.main.path(forResource: "gameover", ofType: "wav") {
+                let gameoverSoundURL = URL(fileURLWithPath: gameoverSoundPath)
+                do {
+                    gameoverSoundPlayer = try AVAudioPlayer(contentsOf: gameoverSoundURL)
+                    gameoverSoundPlayer?.prepareToPlay()
+                } catch {
+                    print("Error loading game over sound effect: \(error.localizedDescription)")
+                }
+            } else {
+                print("Could not find gameover.wav in the app bundle.")
+            }
+
         let delayAction = SKAction.wait(forDuration: 10.0 )
         let sequence = SKAction.sequence([delayAction, showSunAndShadowAction])
         
@@ -340,7 +380,8 @@ extension ArcadeGameScene {
     private func finishGame() {
         
         // TODO: Customize!
-        
+        gameoverSoundPlayer?.play()
+
         gameLogic.isGameOver = true
     }
     
@@ -599,6 +640,10 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
                 // Call a method to show the sun and its shadow
                 showSunAndShadow()
             }
+            
+            zapSoundPlayer?.play()
+            
+
             print(gameLogic.currentScore)
             if otherNode?.parent == nil {
                 print("Star node has no parent.")
@@ -613,6 +658,8 @@ extension ArcadeGameScene : SKPhysicsContactDelegate{
             print("Contact with an obstacle.")
             gameLogic.lifesAfterCollision()
             // Add any specific actions you want to happen when the moon contacts an obstacle
+            hitSoundPlayer?.play()
+
         }
         
         // Logging to confirm contact has occurred

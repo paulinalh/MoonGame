@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D120D8482B31DAF4006B1D55 /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = D120D8472B31DAF4006B1D55 /* test.wav */; };
+		D120D84C2B31DE43006B1D55 /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = D120D84B2B31DE43006B1D55 /* hit.wav */; };
+		D120D84E2B31DE51006B1D55 /* gameover.wav in Resources */ = {isa = PBXBuildFile; fileRef = D120D84D2B31DE51006B1D55 /* gameover.wav */; };
 		D146B35A2B2B5AFC00BB5A48 /* Moon.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D146B3592B2B5AFC00BB5A48 /* Moon.atlas */; };
 		D146B35C2B2BA45B00BB5A48 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */; };
 		D40C91F92B20D8F200505F3B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D40C91F82B20D8F200505F3B /* GameScene.sks */; };
@@ -48,6 +51,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D120D8472B31DAF4006B1D55 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
+		D120D84B2B31DE43006B1D55 /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
+		D120D84D2B31DE51006B1D55 /* gameover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameover.wav; sourceTree = "<group>"; };
 		D146B3592B2B5AFC00BB5A48 /* Moon.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Moon.atlas; sourceTree = "<group>"; };
 		D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D40C91F32B20D8F200505F3B /* MoonSlide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonSlide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +143,9 @@
 				E0535CD62B29F0BF00E6B347 /* GameOverView.swift */,
 				D146B35B2B2BA45B00BB5A48 /* OnboardingView.swift */,
 				D40C92032B20D8F300505F3B /* Assets.xcassets */,
+				D120D8472B31DAF4006B1D55 /* test.wav */,
+				D120D84B2B31DE43006B1D55 /* hit.wav */,
+				D120D84D2B31DE51006B1D55 /* gameover.wav */,
 				D146B3592B2B5AFC00BB5A48 /* Moon.atlas */,
 				D40C92002B20D8F200505F3B /* Main.storyboard */,
 				D40C92052B20D8F300505F3B /* LaunchScreen.storyboard */,
@@ -265,10 +274,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D120D84C2B31DE43006B1D55 /* hit.wav in Resources */,
 				D146B35A2B2B5AFC00BB5A48 /* Moon.atlas in Resources */,
 				D40C92022B20D8F200505F3B /* Main.storyboard in Resources */,
 				D40C91F92B20D8F200505F3B /* GameScene.sks in Resources */,
 				D40C92042B20D8F300505F3B /* Assets.xcassets in Resources */,
+				D120D8482B31DAF4006B1D55 /* test.wav in Resources */,
+				D120D84E2B31DE51006B1D55 /* gameover.wav in Resources */,
 				D40C92072B20D8F300505F3B /* LaunchScreen.storyboard in Resources */,
 				D40C91FB2B20D8F200505F3B /* Actions.sks in Resources */,
 			);
@@ -488,7 +500,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9A34GM6NJL;
+				DEVELOPMENT_TEAM = 7X3HJTLUN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoonSlide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
@@ -521,7 +533,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9A34GM6NJL;
+				DEVELOPMENT_TEAM = 7X3HJTLUN6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = MoonSlide;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
